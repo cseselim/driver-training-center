@@ -29,6 +29,7 @@ class AdminCrudController extends CrudController
         CRUD::setModel(\App\Models\User::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/admin');
         CRUD::setEntityNameStrings('admin', 'admins');
+        CRUD::addClause('where', 'role', '=', 'admin');
     }
 
     /**

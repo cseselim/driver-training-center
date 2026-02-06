@@ -36,6 +36,18 @@ class Driver extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function studentAssignments()
+    {
+        return $this->hasMany(DriverStudent::class, 'driver_id');
+    }
+
+    public function students()
+    {
+        return $this->belongsToMany(User::class, 'driver_student', 'driver_id', 'student_id')
+            ->withPivot('status', 'notes')
+            ->withTimestamps();
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

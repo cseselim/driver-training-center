@@ -4,4 +4,4 @@
 
 <x-backpack::menu-item title="Admins" icon="la la-question" :link="backpack_url('admin')" />
 <x-backpack::menu-item title="Students" icon="la la-graduation-cap" :link="backpack_url('student')" />
-<x-backpack::menu-item title="Drivers" icon="la la-car" :link="backpack_url('driver')" />
+<x-backpack::menu-item title="Drivers" icon="la la-car" :link="backpack_url('driver')" /><x-backpack::menu-item title="Driver-Student Assignments" icon="la la-link" :link="backpack_url('driver-student')" />

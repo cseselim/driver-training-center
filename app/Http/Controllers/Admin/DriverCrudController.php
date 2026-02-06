@@ -29,6 +29,7 @@ class DriverCrudController extends CrudController
         CRUD::setModel(\App\Models\User::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/driver');
         CRUD::setEntityNameStrings('driver', 'drivers');
+        CRUD::addClause('where', 'role', '=', 'driver');
     }
 
     /**

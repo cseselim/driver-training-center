@@ -33,11 +33,19 @@
             @endif
 
             @if (count($options))
-                @foreach ($options as $connected_entity_entry)
-                    @if($current_value == $connected_entity_entry->getKey())
-                        <option value="{{ $connected_entity_entry->getKey() }}" selected>{{ $connected_entity_entry->{$field['attribute']} }}</option>
+                @foreach ($options as $key => $value)
+                    @if(is_object($value))
+                        @if($current_value == $value->getKey())
+                            <option value="{{ $value->getKey() }}" selected>{{ $value->{$field['attribute']} }}</option>
+                        @else
+                            <option value="{{ $value->getKey() }}">{{ $value->{$field['attribute']} }}</option>
+                        @endif
                     @else
-                        <option value="{{ $connected_entity_entry->getKey() }}">{{ $connected_entity_entry->{$field['attribute']} }}</option>
+                        @if($current_value == $key)
+                            <option value="{{ $key }}" selected>{{ $value }}</option>
+                        @else
+                            <option value="{{ $key }}">{{ $value }}</option>
+                        @endif
                     @endif
                 @endforeach
             @endif
