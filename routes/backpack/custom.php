@@ -21,11 +21,24 @@ Route::group([
     Route::post('edit-account-info', 'MyAccountController@postAccountInfoForm')->name('backpack.account.info.store');
     Route::post('change-password', 'MyAccountController@postChangePasswordForm')->name('backpack.account.password');
 
-    Route::crud('admin', 'AdminCrudController');
-    Route::crud('student', 'StudentCrudController');
-    Route::crud('driver', 'DriverCrudController');
-    Route::crud('driver-student', 'DriverStudentCrudController');
-    Route::crud('student-driver', 'StudentDriverCrudController');
+    // Admin only routes
+    Route::middleware('role:admin')->group(function () {
+        Route::crud('admin', 'AdminCrudController');
+        Route::crud('student', 'StudentCrudController');
+        Route::crud('driver', 'DriverCrudController');
+        Route::crud('driver-student', 'DriverStudentCrudController');
+        Route::crud('student-driver', 'StudentDriverCrudController');
+    });
+
+    // Driver routes
+    Route::middleware('role:driver')->group(function () {
+        Route::crud('driver-student', 'DriverStudentCrudController');
+    });
+
+    // Student routes
+    Route::middleware('role:student')->group(function () {
+        Route::crud('student-driver', 'StudentDriverCrudController');
+    });
 }); // this should be the absolute last line of this file
 
 /**
