@@ -16,6 +16,11 @@ Route::group([
     ),
     'namespace' => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
+    // Custom MyAccount routes with proper validation
+    Route::get('edit-account-info', 'MyAccountController@getAccountInfoForm')->name('backpack.account.info');
+    Route::post('edit-account-info', 'MyAccountController@postAccountInfoForm')->name('backpack.account.info.store');
+    Route::post('change-password', 'MyAccountController@postChangePasswordForm')->name('backpack.account.password');
+
     Route::crud('admin', 'AdminCrudController');
     Route::crud('student', 'StudentCrudController');
     Route::crud('driver', 'DriverCrudController');

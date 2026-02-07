@@ -11,7 +11,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Bind custom AccountInfoRequest for proper email validation
+        $this->app->bind(
+            \Backpack\CRUD\app\Http\Requests\AccountInfoRequest::class,
+            \App\Http\Requests\AccountInfoRequest::class
+        );
     }
 
     /**

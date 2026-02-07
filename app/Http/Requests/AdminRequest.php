@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AdminRequest extends FormRequest
 {
@@ -26,7 +27,11 @@ class AdminRequest extends FormRequest
     {
         return [
             'name' => 'required|min:5|max:255',
-            'email' => 'required|email|unique:users,email,' . $this->route('admin'),
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignore($this->id),
+            ],
             'password' => $this->isMethod('create') ? 'required|min:8' : 'nullable|min:8',  // password is required on create, optional on update
             'dob' => 'nullable|date',
             'gender' => 'nullable|in:male,female,other',

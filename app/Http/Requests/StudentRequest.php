@@ -26,7 +26,7 @@ class StudentRequest extends FormRequest
     {
         return [
             'name' => 'required|min:5|max:255',
-            'email' => 'required|email|unique:users,email,' . $this->route('student'),
+            'email' => 'required|email|unique:users,email,' . $this->route('id'),
             'password' => $this->isMethod('create') ? 'required|min:8' : 'nullable|min:8',  // password is required on create, optional on update
             'dob' => 'nullable|date',
             'gender' => 'nullable|in:male,female,other',
