@@ -48,6 +48,11 @@ class Student extends Model
             ->withTimestamps();
     }
 
+    public function assignedDriver()
+    {
+        return $this->belongsTo(User::class, 'driver_id', 'id');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

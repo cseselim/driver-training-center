@@ -1,31 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DriverStudentController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Driver-Student Assignment Routes
-Route::middleware(['auth'])->group(function () {
-    // Student routes
-    Route::get('/student/drivers', [DriverStudentController::class, 'studentAvailableDrivers'])
-        ->name('driver-student.student-dashboard');
+// Student-Driver front-end routes
+Route::group(['middleware' => ['web', 'auth']], function () {
+    Route::get('/student-driver/student-dashboard', [App\Http\Controllers\StudentDriverController::class, 'studentAvailableDrivers'])->name('student-driver.student-dashboard');
+    Route::post('/student-driver/request', [App\Http\Controllers\StudentDriverController::class, 'studentRequestDriver'])->name('student-driver.student-request');
+    Route::delete('/student-driver/request/{id}', [App\Http\Controllers\StudentDriverController::class, 'studentRejectDriver'])->name('student-driver.student-reject');
 
-    Route::post('/student/request-driver', [DriverStudentController::class, 'studentRequestDriver'])
-        ->name('driver-student.student-request');
-
-    Route::delete('/student/reject-driver/{id}', [DriverStudentController::class, 'studentRejectDriver'])
-        ->name('driver-student.student-reject');
-
-    // Driver routes
-    Route::get('/driver/students', [DriverStudentController::class, 'driverAvailableStudents'])
-        ->name('driver-student.driver-dashboard');
-
-    Route::post('/driver/select-student', [DriverStudentController::class, 'driverSelectStudent'])
-        ->name('driver-student.driver-select');
-
-    Route::delete('/driver/remove-student/{id}', [DriverStudentController::class, 'driverRemoveStudent'])
-        ->name('driver-student.driver-remove');
+    Route::get('/student-driver/driver-dashboard', [App\Http\Controllers\StudentDriverController::class, 'driverAvailableStudents'])->name('student-driver.driver-dashboard');
+    Route::post('/student-driver/select', [App\Http\Controllers\StudentDriverController::class, 'driverSelectStudent'])->name('student-driver.driver-select');
+    Route::delete('/student-driver/remove/{id}', [App\Http\Controllers\StudentDriverController::class, 'driverRemoveStudent'])->name('student-driver.driver-remove');
 });

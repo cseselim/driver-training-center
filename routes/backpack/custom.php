@@ -20,6 +20,7 @@ Route::group([
     Route::crud('student', 'StudentCrudController');
     Route::crud('driver', 'DriverCrudController');
     Route::crud('driver-student', 'DriverStudentCrudController');
+    Route::crud('student-driver', 'StudentDriverCrudController');
 }); // this should be the absolute last line of this file
 
 /**
