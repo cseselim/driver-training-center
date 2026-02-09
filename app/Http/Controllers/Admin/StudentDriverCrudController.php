@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\DriverStudent;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Validation\Rule;
 
 /**
  * Class StudentDriverCrudController
@@ -87,10 +88,35 @@ class StudentDriverCrudController extends CrudController
         CRUD::field('notes')
             ->type('textarea')
             ->label('Notes');
+
+        CRUD::setValidation([
+            'driver_id' => 'required|exists:users,id',
+            'student_id' => [
+                'required',
+                'exists:users,id',
+                Rule::unique('driver_student')->where(function ($query) {
+                    return $query->where('driver_id', request('driver_id'));
+                }),
+            ],
+            'status' => 'required|in:pending,accepted,rejected',
+        ]);
     }
 
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+
+        $entryId = $this->crud->getCurrentEntryId();
+        CRUD::setValidation([
+            'driver_id' => 'required|exists:users,id',
+            'student_id' => [
+                'required',
+                'exists:users,id',
+                Rule::unique('driver_student')->where(function ($query) use ($entryId) {
+                    return $query->where('driver_id', request('driver_id'));
+                })->ignore($entryId),
+            ],
+            'status' => 'required|in:pending,accepted,rejected',
+        ]);
     }
 }

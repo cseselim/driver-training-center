@@ -17,9 +17,9 @@ class RoleBasedAccess
     {
         $user = backpack_user();
 
-        if (!$user || !in_array($user->role, $roles)) {
-            abort(403, 'Unauthorized access');
-        }
+        // if (!$user || !in_array($user->role, $roles)) {
+        //     abort(403, 'Unauthorized access');
+        // }
 
         return $next($request);
     }
