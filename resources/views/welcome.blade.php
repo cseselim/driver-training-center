@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 
 <head>
     <meta charset="utf-8">
@@ -33,25 +33,25 @@
                     <ul class="flex items-center justify-center xl:gap-5 2xl:gap-10">
                         <li class="group relative"><a
                                 class="relative cursor-pointer px-[2px] py-1 font-inter text-[15px] tracking-wide transition-colors duration-300 ease-in-out dark:text-gray-300 font-bold text-[#1e3a8a] dark:text-white "
-                                href="/">Home<span
+                                href="#slider_area">Home<span
                                     class="absolute bottom-0 left-0 h-[3px] w-0 origin-left bg-gradient-to-r from-sky-100 via-sky-300 to-sky-500 transition-all duration-500 ease-out group-hover:w-full w-full"
                                     style="background-size: 200% 100%; animation: 2s linear 0s infinite normal none running slideUnderline;"></span></a>
                         </li>
                         <li class="group relative"><a
                                 class="relative cursor-pointer px-[2px] py-1 font-inter text-[15px] tracking-wide transition-colors duration-300 ease-in-out dark:text-gray-300 font-medium text-gray-800 "
-                                href="/about-us">About Us<span
+                                href="#about_us">About Us<span
                                     class="absolute bottom-0 left-0 h-[3px] w-0 origin-left bg-gradient-to-r from-sky-100 via-sky-300 to-sky-500 transition-all duration-500 ease-out group-hover:w-full "
                                     style="background-size: 100% 100%; animation: auto ease 0s 1 normal none running none;"></span></a>
                         </li>
                         <li class="group relative"><a
                                 class="relative cursor-pointer px-[2px] py-1 font-inter text-[15px] tracking-wide transition-colors duration-300 ease-in-out dark:text-gray-300 font-medium text-gray-800 "
-                                href="/courses">Courses<span
+                                href="#courses">Courses<span
                                     class="absolute bottom-0 left-0 h-[3px] w-0 origin-left bg-gradient-to-r from-sky-100 via-sky-300 to-sky-500 transition-all duration-500 ease-out group-hover:w-full "
                                     style="background-size: 100% 100%; animation: auto ease 0s 1 normal none running none;"></span></a>
                         </li>
                         <li class="group relative"><a
                                 class="relative cursor-pointer px-[2px] py-1 font-inter text-[15px] tracking-wide transition-colors duration-300 ease-in-out dark:text-gray-300 font-medium text-gray-800 "
-                                href="/contact-us">Contact Us<span
+                                href="#choose_us">Contact Us<span
                                     class="absolute bottom-0 left-0 h-[3px] w-0 origin-left bg-gradient-to-r from-sky-100 via-sky-300 to-sky-500 transition-all duration-500 ease-out group-hover:w-full "
                                     style="background-size: 100% 100%; animation: auto ease 0s 1 normal none running none;"></span></a>
                         </li>
@@ -85,64 +85,11 @@
                         </div>
                     </div>
             </nav>
-            <div class="relative z-10"><button id="cart-icon"
-                    class="absolute right-5 top-4 flex cursor-pointer items-center justify-start rounded-full bg-white p-2 shadow-xl md:right-[50px] md:top-10 xl:-top-[44px] xl:right-[60px] xl:bg-transparent xl:p-0 xl:shadow-none 2xl:right-[85px]"><span
-                        class="relative text-3xl text-orange-600"><svg stroke="currentColor" fill="currentColor"
-                            stroke-width="0" viewBox="0 0 576 512" class="block lg:hidden" height="24"
-                            width="24" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z">
-                            </path>
-                        </svg><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 576 512"
-                            class="hidden lg:block" height="1em" width="1em"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z">
-                            </path>
-                        </svg><span
-                            class="font-base absolute -right-5 -top-2 h-5 w-5 rounded-full bg-orange-600 px-1 text-sm text-white">0</span></span></button>
-                <div class="fixed left-5 top-8 md:left-auto md:right-60 hidden">
-                    <div class="right-16 z-50 mt-10 w-full md:right-0 md:px-10">
-                        <div class="m-auto grid rounded-md bg-white p-2 shadow-md dark:bg-gray-900 md:grid-cols-1">
-                            <div class="relative hidden overflow-x-auto sm:rounded-lg md:block">
-                                <table
-                                    class="w-full text-left text-sm text-gray-500 dark:text-gray-400 rtl:text-right">
-                                    <thead class="bg-[#28AAE1]/80 text-xs uppercase text-white dark:bg-gray-800">
-                                        <tr>
-                                            <th class="px-6 py-3">Course Name</th>
-                                            <th class="px-6 py-3">Price</th>
-                                            <th class="px-6 py-3 text-center">Remove</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                    <tfoot>
-                                        <tr class="bg-[#007bc7]/10 text-black dark:bg-sky-900/50 dark:text-white">
-                                            <th class="px-6 py-3">Total Cost</th>
-                                            <th class="px-6 py-3 text-center">৳&nbsp;0</th>
-                                            <td></td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                            <div class="block w-full space-y-1 md:hidden">
-                                <div
-                                    class="w-[320px] rounded border border-gray-200 bg-gradient-to-r from-gray-50 to-white p-4 text-center">
-                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">No data found.</p>
-                                </div>
-                            </div>
-                            <div
-                                class="mt-2 flex w-full items-center justify-between rounded border bg-[#28AAE1] p-2 text-sm text-white md:hidden">
-                                <p>Total Cost</p>
-                                <p> ৳&nbsp;0</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </header>
 
-    <section class="relative h-auto w-full" style="
+    <section id="slider_area" class="relative h-auto w-full" style="
     ">
         <div class="absolute inset-0 -z-10 bg-[#0359A9] dark:bg-gray-900"><img alt="Hero background" decoding="async"
                 data-nimg="fill" class="object-cover" src="{{ asset('assets/image/slider-bg.webp') }}"
@@ -265,7 +212,7 @@
     </section>
 
     <section class="bg-white dark:bg-gray-900" style="opacity: 1; transform: none;">
-        <div class="mx-auto max-w-7xl px-4">
+        <div class="mx-auto max-w-7xl">
             <div class="container flex items-center justify-center px-4 py-10">
                 <div class="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-4">
 
@@ -318,13 +265,13 @@
         </div>
     </section>
 
-    <section class="bg-bg-1 px-2 bg-[#0F1725]">
-        <div class="mx-auto max-w-7xl px-4 py-12 lg:py-24">
+    <section id="choose_us" class="bg-bg-1 px-2 bg-[#0F1725]">
+        <div class="mx-auto max-w-7xl py-12 lg:py-24">
 
             <div class="flex flex-col items-center gap-10 lg:flex-row">
 
                 <!-- TEXT COLUMN -->
-                <div class="flex w-full flex-col justify-center lg:w-1/2 lg:px-10">
+                <div class="flex w-full flex-col justify-center lg:w-1/2 lg:pr-10 xl:pr-20">
                     <h2 class="text-sm font-semibold uppercase tracking-wider text-[#00588F] dark:text-sky-400">
                         Why Choose Our Driving Academy
                     </h2>
@@ -371,7 +318,7 @@
                 <!-- IMAGE COLUMN -->
                 <div class="relative w-full lg:w-1/2">
                     <div class="relative overflow-hidden rounded-xl shadow-xl">
-                        <img src="{{ asset('assets/image/image-2.jpg') }}"
+                        <img src="{{ asset('assets/image/original-1.jpeg') }}"
                             class="h-full w-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
                     </div>
@@ -381,8 +328,8 @@
         </div>
     </section>
 
-    <section class="bg-white dark:bg-gray-900">
-        <div class="mx-auto max-w-7xl px-4">
+    <section id="about_us" class="bg-white dark:bg-gray-900">
+        <div class="mx-auto max-w-7xl">
             <div class="container px-2 py-10 lg:py-24">
                 <div class="flex items-center justify-center">
                     <div class="flex flex-col gap-8 lg:flex-row">
@@ -392,12 +339,12 @@
                             style="opacity: 1; transform: none;">
                             <div class="flex gap-2">
                                 <img class="rounded-xl" alt="experience background" loading="lazy" width="100%" decoding="async" data-nimg="1"
-                                    src="{{ asset('assets/image/image-3.jpg') }}" style="color: transparent;">
+                                    src="{{ asset('assets/image/original.jpeg') }}" style="color: transparent;">
                             </div>
                         </div>
 
                         <!-- Right Text Column -->
-                        <div class="order-1 w-full md:px-12 lg:order-2 lg:w-1/2 lg:px-5 xl:px-20"
+                        <div class="order-1 w-full md:pl-12 lg:order-2 lg:w-1/2 lg:pl-5 xl:pl-20"
                             style="opacity: 1; transform: none;">
                             <h2 class="text-xl uppercase text-[#00588F] dark:text-sky-400 md:text-2xl">About Us</h2>
                             <h3 class="onest-font py-5 text-2xl font-semibold dark:text-gray-100 md:py-4 md:text-4xl">
@@ -436,8 +383,8 @@
         </div>
     </section>
 
-    <section class="pb-5 pt-5 bg-[#0F1725]">
-        <div class="container mx-auto px-4">
+    <section id="courses" class="pb-5 pt-5 bg-[#0F1725]">
+        <div class="container mx-auto">
             <!-- Section Header -->
             <div class="mx-auto mb-8 text-center md:mb-12 md:w-[700px]">
                 <h2 class="text-xl uppercase text-[#00588F] dark:text-sky-400">Our Courses</h2>
@@ -460,8 +407,8 @@
 
                         <div class="h-[200px] overflow-hidden rounded-t-md">
                             <img class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                src="https://api.bddti.com/uploads/course/1742205902_WhatsApp Image 2025-03-17 at 2.21.36 PM.jpeg"
-                                alt="International Driving License Standard">
+                                src="{{ asset('assets/image/course-1.jpeg') }}"
+                                alt="corse 1">
                         </div>
 
                         <div class="p-5 flex flex-col flex-grow">
@@ -482,16 +429,6 @@
                                 <p>📄 আন্তর্জাতিকভাবে গ্রহণযোগ্য লাইসেন্স</p>
                             </div>
                         </div>
-
-                        {{-- <div class="flex justify-center gap-3 pb-5">
-                            <button class="rounded-md bg-primary px-4 py-2 text-white hover:bg-primary-hover">
-                                Add to Cart
-                            </button>
-                            <a href="/courses/course-details/24"
-                                class="rounded-md border border-sky-400 px-4 py-2 hover:bg-primary hover:text-white">
-                                Details
-                            </a>
-                        </div> --}}
                     </div>
                 </div>
 
@@ -502,8 +439,8 @@
 
                         <div class="h-[200px] overflow-hidden rounded-t-md">
                             <img class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                src="https://api.bddti.com/uploads/course/1742205976_WhatsApp Image 2025-03-17 at 2.48.02 PM.jpeg"
-                                alt="International Driving License Urgent">
+                                src="{{ asset('assets/image/course-2.jpeg') }}"
+                                alt="course 2">
                         </div>
 
                         <div class="p-5 flex flex-col flex-grow">
@@ -535,8 +472,8 @@
 
                         <div class="h-[200px] overflow-hidden rounded-t-md">
                             <img class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                src="https://api.bddti.com/uploads/course/1742206013_WhatsApp Image 2025-03-17 at 3.55.41 PM.jpeg"
-                                alt="BRTA Most Urgent License">
+                                src="{{ asset('assets/image/course-3.jpeg') }}"
+                                alt="course 3">
                         </div>
 
                         <div class="p-5 flex flex-col flex-grow">
