@@ -26,10 +26,15 @@ class User extends Authenticatable
         'password',
         'dob',
         'gender',
+        'start_date',
+        'end_date',
         'role',
         'profile_photo',
         'present_address',
         'permanent_address',
+        'phone_number',
+        'nid_number',
+        'student_capacity',
         'father_name',
         'mother_name',
         'parent_contact',
@@ -66,10 +71,10 @@ class User extends Authenticatable
     }
 
     public function setProfilePhotoAttribute($value)
-{
-    if (is_file($value)) {
-        $path = $value->store('profile_photos', 'public');
-        $this->attributes['profile_photo'] = $path;
+    {
+        if (is_file($value)) {
+            $path = $value->store('profile_photos', 'public');
+            $this->attributes['profile_photo'] = $path;
+        }
     }
-}
 }

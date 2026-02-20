@@ -47,9 +47,9 @@ class DriverCrudController extends CrudController
          */
         CRUD::column('name')->label('Full Name');
         CRUD::column('email')->label('Email');
-        CRUD::column('dob')->label('Date of Birth');
-        CRUD::column('gender')->label('Gender');
-        CRUD::column('role')->label('Role');
+        CRUD::column('start_date')->label('Start Date');
+        CRUD::column('end_date')->label('End Date');
+        CRUD::column('student_capacity')->label('Student Capacity');
         // CRUD::addColumn([
         //     'name'  => 'profile_photo',
         //     'label' => 'Photo',
@@ -78,6 +78,11 @@ class DriverCrudController extends CrudController
         CRUD::field('name')->label('Full Name');
         CRUD::field('email')->label('Email');
 
+        // Availability window
+        CRUD::field('start_date')->type('datetime')->label('Start Date');
+        CRUD::field('end_date')->type('datetime')->label('End Date');
+        CRUD::field('student_capacity')->type('number')->label('Student Capacity');
+
         // Date of Birth
         CRUD::field('dob')->type('date')->label('Date of Birth');
 
@@ -99,6 +104,8 @@ class DriverCrudController extends CrudController
         CRUD::field('father_name')->label("Father's Name");
         CRUD::field('mother_name')->label("Mother's Name");
         CRUD::field('parent_contact')->label("Parent Contact");
+        CRUD::field('phone_number')->label("Phone Number");
+        CRUD::field("nid_number")->label("NID Number");
 
         // Role dropdown
         CRUD::field('role')

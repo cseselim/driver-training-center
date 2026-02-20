@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -19,10 +18,15 @@ return new class extends Migration
             $table->string('present_address')->nullable();
             $table->string('permanent_address')->nullable();
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
+            $table->string('phone_number', 50)->nullable();
+            $table->string('nid_number', 50)->nullable();
             $table->string('father_name')->nullable();
             $table->string('mother_name')->nullable();
             $table->string('parent_contact')->nullable();
             $table->enum('role', ['admin', 'driver', 'student'])->default('admin');
+            $table->string('student_capacity')->nullable()->comment('This column only for driver');
+            $table->dateTime('start_date')->nullable()->comment('Driver availability start date');
+            $table->dateTime('end_date')->nullable()->comment('Driver availability end date');
             $table->string('profile_photo')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
