@@ -45,6 +45,11 @@ class DriverStudentCrudController extends CrudController
             ->type('closure')
             ->function(function ($entry) {
                 return $entry->driver?->name ?? '-';
+            })
+            ->searchLogic(function ($query, $column, $searchTerm) {
+                return $query->orWhereHas('driver', function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', '%' . $searchTerm . '%');
+                });
             });
 
         CRUD::column('student_id')
@@ -52,6 +57,11 @@ class DriverStudentCrudController extends CrudController
             ->type('closure')
             ->function(function ($entry) {
                 return $entry->student?->name ?? '-';
+            })
+            ->searchLogic(function ($query, $column, $searchTerm) {
+                return $query->orWhereHas('student', function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', '%' . $searchTerm . '%');
+                });
             });
 
         CRUD::column('status')
