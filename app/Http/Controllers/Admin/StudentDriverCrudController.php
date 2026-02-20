@@ -85,21 +85,11 @@ class StudentDriverCrudController extends CrudController
             ->type('select')
             ->label('Driver')
             ->options(function () {
-                $user = backpack_user();
-                if ($user->role === 'student') {
-                    return \App\Models\User::where(['role' => 'driver', 'id' => $user->id])->get()->mapWithKeys(function ($u) {
-                        $start = $u->start_date ? \Carbon\Carbon::parse($u->start_date)->format('Y-m-d H:i') : '-';
-                        $end = $u->end_date ? \Carbon\Carbon::parse($u->end_date)->format('Y-m-d H:i') : '-';
-                        return [$u->id => $u->name . ' (' . $start . ' - ' . $end . ')'];
-                    })->toArray();
-                } else {
-                    return \App\Models\User::where('role', 'driver')->get()->mapWithKeys(function ($u) {
-                        $start = $u->start_date ? \Carbon\Carbon::parse($u->start_date)->format('Y-m-d H:i') : '-';
-                        $end = $u->end_date ? \Carbon\Carbon::parse($u->end_date)->format('Y-m-d H:i') : '-';
-                        return [$u->id => $u->name . ' (' . $start . ' - ' . $end . ')'];
-                    })->toArray();
-                }
-
+                return \App\Models\User::where('role', 'driver')->get()->mapWithKeys(function ($u) {
+                    $start = $u->start_date ? \Carbon\Carbon::parse($u->start_date)->format('Y-m-d H:i') : '-';
+                    $end = $u->end_date ? \Carbon\Carbon::parse($u->end_date)->format('Y-m-d H:i') : '-';
+                    return [$u->id => $u->name . ' (' . $start . ' - ' . $end . ')'];
+                })->toArray();
             });
 
         CRUD::field('student_id')
