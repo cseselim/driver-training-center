@@ -1,5 +1,9 @@
 @extends(backpack_view('blank'))
-
+{{-- <style>
+    .d-print-none {
+        display: none !important;
+    }
+</style> --}}
 {{-- @php
     if (backpack_theme_config('show_getting_started')) {
         $widgets['before_content'][] = [
