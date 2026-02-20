@@ -63,8 +63,8 @@ return [
     'home_link' => '',
 
     // Menu logo. You can replace this with an <img> tag if you have a logo.
-    'project_logo' => '<b>Back</b>pack',
-
+    //'project_logo' => '<img src="' . asset('assets/image/logo/logo (1).png') . '" alt="Backpack Logo" style="width: 180px;">',
+    'project_logo' => '<span class="font-bold text-lg">SM Driving School</span>',
     // Show / hide breadcrumbs on admin panel pages.
     'breadcrumbs' => true,
 

@@ -69,7 +69,7 @@
                     <div class="mr-16 hidden xl:block">
                         <div class="flex space-x-4"><a
                                 class="inline-block rounded border border-bg-2 px-5 py-2 font-inter text-sm font-bold text-black transition-colors duration-300 hover:bg-primary-hover hover:text-white dark:text-white"
-                                href="/signin">Sign In</a>
+                                href="{{ url('admin/login') }}">Sign In</a>
                         </div>
                         <div class="flex items-center gap-5 md:gap-10">
                             <div class="lg: ml-5 xl:hidden"><a
