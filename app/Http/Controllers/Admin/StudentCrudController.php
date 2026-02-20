@@ -49,7 +49,9 @@ class StudentCrudController extends CrudController
         CRUD::column('email')->label('Email');
         CRUD::column('dob')->label('Date of Birth');
         CRUD::column('gender')->label('Gender');
-        CRUD::column('role')->label('Role');
+        CRUD::column('phone_number')->label('Phone Number');
+        CRUD::column('nid_number')->label('NID Number');
+        CRUD::column('father_name')->label("Father's Name");
         // CRUD::addColumn([
         //     'name'  => 'profile_photo',
         //     'label' => 'Photo',
@@ -99,6 +101,8 @@ class StudentCrudController extends CrudController
         CRUD::field('father_name')->label("Father's Name");
         CRUD::field('mother_name')->label("Mother's Name");
         CRUD::field('parent_contact')->label("Parent Contact");
+        CRUD::field('phone_number')->label("Phone Number");
+        CRUD::field("nid_number")->label("NID Number");
 
         // Role dropdown
         CRUD::field('role')
