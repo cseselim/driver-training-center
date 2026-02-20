@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\DriverStudentRequest;
 use App\Models\DriverStudent;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Illuminate\Validation\Rule;
 
 /**
  * Class DriverStudentCrudController
@@ -78,11 +78,17 @@ class DriverStudentCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
+        CRUD::setValidation(DriverStudentRequest::class);
+
         CRUD::field('driver_id')
             ->type('select')
             ->label('Driver')
             ->options(function () {
-                return \App\Models\User::where('role', 'driver')->pluck('name', 'id');
+                return \App\Models\User::where('role', 'driver')->get()->mapWithKeys(function ($u) {
+                    $start = $u->start_date ? \Carbon\Carbon::parse($u->start_date)->format('Y-m-d H:i') : '-';
+                    $end = $u->end_date ? \Carbon\Carbon::parse($u->end_date)->format('Y-m-d H:i') : '-';
+                    return [$u->id => $u->name . ' (' . $start . ' - ' . $end . ')'];
+                })->toArray();
             });
 
         CRUD::field('student_id')
@@ -92,11 +98,16 @@ class DriverStudentCrudController extends CrudController
                 return \App\Models\User::where('role', 'student')->pluck('name', 'id');
             });
 
+        // Assignment date - ensure one student can have one driver per date
+        CRUD::field('assignment_date')
+            ->type('date')
+            ->label('Assignment Date');
+
         CRUD::field('status')
             ->type('select_from_array')
             ->options([
                 'pending' => 'Pending',
-                'accepted' => 'Accepted',
+                'done' => 'Done',
                 'rejected' => 'Rejected',
             ])
             ->default('pending')
@@ -105,19 +116,6 @@ class DriverStudentCrudController extends CrudController
         CRUD::field('notes')
             ->type('textarea')
             ->label('Notes');
-
-        // Prevent creating duplicate driver+student pairs
-        CRUD::setValidation([
-            'driver_id' => 'required|exists:users,id',
-            'student_id' => [
-                'required',
-                'exists:users,id',
-                Rule::unique('driver_student')->where(function ($query) {
-                    return $query->where('driver_id', request('driver_id'));
-                }),
-            ],
-            'status' => 'required|in:pending,accepted,rejected',
-        ]);
     }
 
     /**
@@ -129,19 +127,5 @@ class DriverStudentCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
-
-        // Adjust validation for update: allow the current entry to keep its pair
-        $entryId = $this->crud->getCurrentEntryId();
-        CRUD::setValidation([
-            'driver_id' => 'required|exists:users,id',
-            'student_id' => [
-                'required',
-                'exists:users,id',
-                Rule::unique('driver_student')->where(function ($query) use ($entryId) {
-                    return $query->where('driver_id', request('driver_id'));
-                })->ignore($entryId),
-            ],
-            'status' => 'required|in:pending,accepted,rejected',
-        ]);
     }
 }

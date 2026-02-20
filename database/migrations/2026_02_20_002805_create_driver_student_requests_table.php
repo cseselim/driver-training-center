@@ -16,8 +16,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('driver_id')->nullable()->index();
             $table->unsignedBigInteger('student_id')->nullable()->index();
 
-            $table->enum('status', ['Active', 'Inactive'])
-                ->default('Active');
+            $table->enum('status', ['Pending', 'Done', 'Rejected'])
+                ->default('Pending');
 
             $table->text('notes')->nullable();
 
