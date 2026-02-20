@@ -19,5 +19,41 @@
     }
 @endphp --}}
 
+
 @section('content')
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body text-center">
+                    <p class="card-text" style="font-size:2rem;">{{ \App\Models\User::where('role', 'student')->count() }}</p>
+                    <h5 class="card-title">Total Students</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body text-center">
+                    <p class="card-text" style="font-size:2rem;">
+                        {{ \App\Models\User::where('role', 'student')->where('present_address', '!=', null)->count() }}</p>
+                        <h5 class="card-title">Present Students</h5>
+                    </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body text-center">
+                    <p class="card-text" style="font-size:2rem;">{{ \App\Models\DriverStudent::where('status', 'Done')->count() }}</p>
+                    <h5 class="card-title">Passing Students</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-body text-center">
+                    <p class="card-text" style="font-size:2rem;">{{ \App\Models\User::where('role', 'driver')->count() }}</p>
+                    <h5 class="card-title">Total Drivers</h5>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
