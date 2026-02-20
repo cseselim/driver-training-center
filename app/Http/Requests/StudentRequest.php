@@ -27,12 +27,12 @@ class StudentRequest extends FormRequest
         return [
             'name' => 'required|min:5|max:255',
             'email' => 'required|email|unique:users,email,' . $this->route('id'),
-            'password' => 'required|min:8',  // password is required on create, optional on update
+            'password' => 'nullable|min:8',  // password is required on create, optional on update
             'dob' => 'required|date',
             'gender' => 'required|in:male,female,other',
             'role' => 'required|in:admin,driver,student',
             // 'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'profile_photo' => 'required|image',
+            'profile_photo' => 'nullable|image',
             'present_address' => 'required|string|max:1000',
             'permanent_address' => 'required|string|max:1000',
             'father_name' => 'required|string|max:255',

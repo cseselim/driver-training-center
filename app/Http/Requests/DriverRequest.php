@@ -27,7 +27,7 @@ class DriverRequest extends FormRequest
         return [
             'name' => 'required|min:5|max:255',
             'email' => 'required|email|unique:users,email,' . $this->route('id'),
-            'password' => 'required|min:8',
+            'password' => 'nullable|min:8',
             'dob' => 'required|date',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
@@ -35,7 +35,7 @@ class DriverRequest extends FormRequest
             'role' => 'required|in:admin,driver,student',
             'student_capacity' => 'required|integer|min:1',
             // 'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'profile_photo' => 'required|image',
+            'profile_photo' => 'nullable|image',
             'present_address' => 'required|string|max:1000',
             'permanent_address' => 'required|string|max:1000',
             'phone_number' => 'required|string|max:50',
