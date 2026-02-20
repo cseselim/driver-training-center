@@ -25,6 +25,14 @@ class StudentDriverCrudController extends CrudController
         CRUD::setModel(DriverStudent::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/student-driver');
         CRUD::setEntityNameStrings('student-driver assignment', 'student-driver assignments');
+
+        // Filter by role: students see only their own, drivers see only their assignments, admins see all
+        $user = backpack_user();
+        if ($user->role === 'student') {
+            CRUD::addClause('where', 'student_id', '=', $user->id);
+        } elseif ($user->role === 'driver') {
+            CRUD::addClause('where', 'driver_id', '=', $user->id);
+        }
     }
 
     protected function setupListOperation()
@@ -88,21 +96,32 @@ class StudentDriverCrudController extends CrudController
             ->type('select')
             ->label('Student')
             ->options(function () {
-                return \App\Models\User::where('role', 'student')->pluck('name', 'id');
+                $user = backpack_user();
+                if ($user->role === 'student') {
+                    return \App\Models\User::where(['role' => 'student', 'id' => $user->id])->pluck('name', 'id');
+                } elseif ($user->role === 'admin') {
+                    return \App\Models\User::where('role', 'student')->pluck('name', 'id');
+                }
             });
 
         // Assignment date - ensure one student can have one driver per date
         CRUD::field('assignment_date')
             ->type('date')
             ->label('Assignment Date');
-
-        CRUD::field('status')
-            ->type('select_from_array')
-            ->options([
+        $user = backpack_user();
+        $statusOptions = ($user && $user->role === 'student')
+            ? [
+                'pending' => 'Pending',
+            ]
+            : [
                 'pending' => 'Pending',
                 'accepted' => 'Accepted',
                 'rejected' => 'Rejected',
-            ])
+            ];
+
+        CRUD::field('status')
+            ->type('select_from_array')
+            ->options($statusOptions)
             ->default('pending')
             ->label('Status');
 

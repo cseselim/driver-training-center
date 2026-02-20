@@ -30,6 +30,14 @@ class DriverStudentCrudController extends CrudController
         CRUD::setModel(DriverStudent::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/driver-student');
         CRUD::setEntityNameStrings('driver-student assignment', 'driver-student assignments');
+
+        // Filter by role: students see only their own, drivers see only their assignments, admins see all
+        $user = backpack_user();
+        if ($user->role === 'student') {
+            CRUD::addClause('where', 'student_id', '=', $user->id);
+        } elseif ($user->role === 'driver') {
+            CRUD::addClause('where', 'driver_id', '=', $user->id);
+        }
     }
 
     /**
