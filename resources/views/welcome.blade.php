@@ -261,7 +261,7 @@
                     <!-- Total Learners -->
                     <div
                         class="flex flex-col items-center border-dashed border-primary last:border-0 dark:border-gray-500 md:justify-center md:space-y-2 md:border-r md:px-24">
-                        <i class="fas fa-graduation-cap text-[50px] text-[#079669]"></i>
+                        <i class="fas fa-graduation-cap text-[50px] text-white"></i>
                         <h2 class="phudu-font text-[26px] font-normal dark:text-white">55,000+</h2>
                         <h3
                             class="whitespace-nowrap text-center text-base text-primary dark:text-sky-400 md:text-[18px]">
@@ -272,7 +272,7 @@
                     <!-- Active Students -->
                     <div
                         class="flex flex-col items-center border-dashed border-primary last:border-0 dark:border-gray-500 md:justify-center md:space-y-2 md:border-r md:px-24">
-                        <i class="fa-solid fa-bridge-circle-check text-[50px] text-[#079669]"></i>
+                        <i class="fa-solid fa-bridge-circle-check text-[50px] text-white"></i>
                         <h2 class="phudu-font text-[26px] font-normal dark:text-white">1,200+</h2>
                         <h3
                             class="whitespace-nowrap text-center text-base text-primary dark:text-sky-400 md:text-[18px]">
@@ -283,7 +283,7 @@
                     <!-- Successful Drivers -->
                     <div
                         class="flex flex-col items-center border-dashed border-primary last:border-0 dark:border-gray-500 md:justify-center md:space-y-2 md:border-r md:px-24">
-                        <i class="fas fa-car text-[50px] text-[#079669]"></i>
+                        <i class="fas fa-car text-[50px] text-white"></i>
                         <h2 class="phudu-font text-[26px] font-normal dark:text-white">52,000+</h2>
                         <h3
                             class="whitespace-nowrap text-center text-base text-primary dark:text-sky-400 md:text-[18px]">
@@ -294,7 +294,7 @@
                     <!-- Branches -->
                     <div
                         class="flex flex-col items-center border-dashed border-primary last:border-0 dark:border-gray-500 md:justify-center md:space-y-2 md:px-24">
-                        <i class="fas fa-building text-[50px] text-[#079669]"></i>
+                        <i class="fas fa-building text-[50px] text-white"></i>
                         <h2 class="phudu-font text-[26px] font-normal dark:text-white">15+</h2>
                         <h3
                             class="whitespace-nowrap text-center text-base text-primary dark:text-sky-400 md:text-[18px]">
