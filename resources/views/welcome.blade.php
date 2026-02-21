@@ -57,8 +57,9 @@
                         </li>
                     </ul>
                 </div>
-                <div class="flex items-center"><button aria-label="Toggle Dark Mode"
-                        class="rounded p-2 text-gray-800 transition xl:mr-5"><svg stroke="currentColor"
+                <div class="flex items-center">
+                    <button aria-label="Toggle Dark Mode"
+                        class="rounded p-2 text-gray-800 transition xl:mr-5 hidden xl:flex space-x-4"><svg stroke="currentColor"
                             fill="currentColor" stroke-width="0" viewBox="0 0 16 16"
                             class="text-xl text-blue-500 transition-all duration-300" height="1em" width="1em"
                             xmlns="http://www.w3.org/2000/svg">
@@ -66,28 +67,69 @@
                                 d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708">
                             </path>
                         </svg></button>
-                    <div class="mr-16 hidden xl:block">
-                        <div class="flex space-x-4"><a
+                    <div class="mr-5">
+                        <div class="hidden xl:flex space-x-4">
+                            <a
                                 class="inline-block rounded border border-bg-2 px-5 py-2 font-inter text-sm font-bold text-black transition-colors duration-300 hover:bg-primary-hover hover:text-white dark:text-white"
                                 href="{{ url('admin/login') }}">Sign In</a>
                         </div>
-                        <div class="flex items-center gap-5 md:gap-10">
-                            <div class="lg: ml-5 xl:hidden"><a
+                        <div class="flex items-center gap-5 md:gap-10 xl:hidden">
+                            <div class="lg: ml-5"><a
                                     class="rounded bg-primary px-2 py-1.5 text-sm text-white transition hover:bg-sky-600 dark:bg-sky-600 md:px-4"
-                                    href="/signin">Sign In</a></div><button aria-label="Open Menu"
-                                class="text-3xl text-sky-600 xl:hidden"><svg stroke="currentColor" fill="currentColor"
+                                    href="/signin">Sign In</a>
+                            </div>
+                            <button id="mobileMenuBtn" aria-label="Open Menu"
+                                class="text-3xl text-sky-600 "><svg stroke="currentColor" fill="currentColor"
                                     stroke-width="0" viewBox="0 0 20 20" aria-hidden="true" height="1em"
                                     width="1em" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
                                         d="M2 4.75A.75.75 0 0 1 2.75 4h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 4.75Zm0 10.5a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5a.75.75 0 0 1-.75-.75ZM2 10a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 10Z"
                                         clip-rule="evenodd"></path>
-                                </svg></button>
+                                </svg>
+                            </button>
                         </div>
                     </div>
             </nav>
 
         </div>
     </header>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="xl:hidden hidden bg-white dark:bg-gray-900 border-t dark:border-gray-700">
+
+        <ul class="flex flex-col gap-2 px-6 py-5 text-gray-800 dark:text-gray-200">
+
+            <li>
+                <a href="#slider_area" class="block py-2 font-semibold hover:text-sky-600">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="#about_us" class="block py-2 font-semibold hover:text-sky-600">
+                    About Us
+                </a>
+            </li>
+
+            <li>
+                <a href="#courses" class="block py-2 font-semibold hover:text-sky-600">
+                    Courses
+                </a>
+            </li>
+
+            <li>
+                <a href="#choose_us" class="block py-2 font-semibold hover:text-sky-600">
+                    Contact Us
+                </a>
+            </li>
+
+            <li class="pt-4">
+                <a href="{{ url('admin/login') }}"
+                    class="block w-full rounded bg-sky-600 px-4 py-2 text-center font-bold text-white hover:bg-sky-700">
+                    Sign In
+                </a>
+            </li>
+        </ul>
+    </div>
 
     <section id="slider_area" class="relative h-auto w-full" style="
     ">
@@ -211,7 +253,7 @@
         </div>
     </section>
 
-    <section class="bg-white dark:bg-gray-900" style="opacity: 1; transform: none;">
+    <section class=" bg-[#111827d9]" style="opacity: 1; transform: none;">
         <div class="mx-auto max-w-7xl">
             <div class="container flex items-center justify-center px-4 py-10">
                 <div class="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-4">
@@ -335,7 +377,7 @@
                     <div class="flex flex-col gap-8 lg:flex-row">
 
                         <!-- Left Image Column -->
-                        <div class="relative order-2 hidden w-full md:flex lg:order-1 lg:w-1/2 items-center"
+                        <div class="relative order-2 w-full md:flex lg:order-1 lg:w-1/2 items-center"
                             style="opacity: 1; transform: none;">
                             <div class="flex gap-2">
                                 <img class="rounded-xl" alt="experience background" loading="lazy" width="100%" decoding="async" data-nimg="1"
@@ -514,7 +556,7 @@
                     Developed by
                     <a target="_blank" href="#"
                         class="font-medium text-gray-600 hover:text-primary-hover dark:text-gray-300">
-                        Selim
+                        Chilai IT
                     </a>
                 </span>
 
@@ -536,5 +578,14 @@
         </div>
     </footer>
 </body>
+
+<script>
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+</script>
 
 </html>
