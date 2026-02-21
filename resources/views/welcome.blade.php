@@ -34,25 +34,25 @@
                         <li class="group relative"><a
                                 class="relative cursor-pointer px-[2px] py-1 font-inter text-[15px] tracking-wide transition-colors duration-300 ease-in-out dark:text-gray-300 font-bold text-[#1e3a8a] dark:text-white "
                                 href="#slider_area">Home<span
-                                    class="absolute bottom-0 left-0 h-[3px] w-0 origin-left bg-gradient-to-r from-sky-100 via-sky-300 to-sky-500 transition-all duration-500 ease-out group-hover:w-full w-full"
+                                    class="absolute bottom-0 left-0 h-[3px] w-0 origin-left bg-gradient-to-r from-[#079669] via-sky-300 to-sky-500 transition-all duration-500 ease-out group-hover:w-full w-full"
                                     style="background-size: 200% 100%; animation: 2s linear 0s infinite normal none running slideUnderline;"></span></a>
                         </li>
                         <li class="group relative"><a
                                 class="relative cursor-pointer px-[2px] py-1 font-inter text-[15px] tracking-wide transition-colors duration-300 ease-in-out dark:text-gray-300 font-medium text-gray-800 "
                                 href="#about_us">About Us<span
-                                    class="absolute bottom-0 left-0 h-[3px] w-0 origin-left bg-gradient-to-r from-sky-100 via-sky-300 to-sky-500 transition-all duration-500 ease-out group-hover:w-full "
+                                    class="absolute bottom-0 left-0 h-[3px] w-0 origin-left bg-gradient-to-r from-[#079669] via-sky-300 to-sky-500 transition-all duration-500 ease-out group-hover:w-full "
                                     style="background-size: 100% 100%; animation: auto ease 0s 1 normal none running none;"></span></a>
                         </li>
                         <li class="group relative"><a
                                 class="relative cursor-pointer px-[2px] py-1 font-inter text-[15px] tracking-wide transition-colors duration-300 ease-in-out dark:text-gray-300 font-medium text-gray-800 "
                                 href="#courses">Courses<span
-                                    class="absolute bottom-0 left-0 h-[3px] w-0 origin-left bg-gradient-to-r from-sky-100 via-sky-300 to-sky-500 transition-all duration-500 ease-out group-hover:w-full "
+                                    class="absolute bottom-0 left-0 h-[3px] w-0 origin-left bg-gradient-to-r from-[#079669] via-sky-300 to-sky-500 transition-all duration-500 ease-out group-hover:w-full "
                                     style="background-size: 100% 100%; animation: auto ease 0s 1 normal none running none;"></span></a>
                         </li>
                         <li class="group relative"><a
                                 class="relative cursor-pointer px-[2px] py-1 font-inter text-[15px] tracking-wide transition-colors duration-300 ease-in-out dark:text-gray-300 font-medium text-gray-800 "
                                 href="#choose_us">Contact Us<span
-                                    class="absolute bottom-0 left-0 h-[3px] w-0 origin-left bg-gradient-to-r from-sky-100 via-sky-300 to-sky-500 transition-all duration-500 ease-out group-hover:w-full "
+                                    class="absolute bottom-0 left-0 h-[3px] w-0 origin-left bg-gradient-to-r from-[#079669] via-sky-300 to-sky-500 transition-all duration-500 ease-out group-hover:w-full "
                                     style="background-size: 100% 100%; animation: auto ease 0s 1 normal none running none;"></span></a>
                         </li>
                     </ul>
@@ -147,7 +147,7 @@
                         শীর্ষস্থানীয় মান, এশিয়ার শ্রেষ্ঠে</div>
                     <h1
                         class="hero_title font-siraj mt-2 px-2 pt-0 text-[26px] font-bold uppercase text-white md:px-0 md:pt-0 md:text-[50px] lg:text-[40px] xl:text-[55px] 2xl:text-[62px] anek_bangla_9e651d83-module__hqwGvq__className">
-                        শ্রেষ্ঠে ড্রাইভিং ট্রেনিং <br> ইনস্টিটিউট</h1>
+                        শ্রেষ্ঠে ড্রাইভিং ট্রেনিং <br> <span class="text-[#FDA800]">ইনস্টিটিউট</span></h1>
                     <p
                         class="mt-2 px-4 pt-1 text-lg font-medium text-white md:px-0 md:pt-0 md:text-xl 2xl:text-2xl tiro_bangla_57cffe6f-module__vF7Mtq__className">
                         -নিরাপদ সড়ক ও দক্ষ জনশক্তি তৈরিতে অঙ্গীকারবদ্ধ।</p>
@@ -261,7 +261,7 @@
                     <!-- Total Learners -->
                     <div
                         class="flex flex-col items-center border-dashed border-primary last:border-0 dark:border-gray-500 md:justify-center md:space-y-2 md:border-r md:px-24">
-                        <i class="fas fa-graduation-cap text-[50px] text-white"></i>
+                        <i class="fas fa-graduation-cap text-[50px] text-[#FDA800]"></i>
                         <h2 class="phudu-font text-[26px] font-normal dark:text-white">55,000+</h2>
                         <h3
                             class="whitespace-nowrap text-center text-base text-primary dark:text-sky-400 md:text-[18px]">
@@ -272,7 +272,7 @@
                     <!-- Active Students -->
                     <div
                         class="flex flex-col items-center border-dashed border-primary last:border-0 dark:border-gray-500 md:justify-center md:space-y-2 md:border-r md:px-24">
-                        <i class="fa-solid fa-bridge-circle-check text-[50px] text-white"></i>
+                        <i class="fa-solid fa-bridge-circle-check text-[50px] text-[#FDA800]"></i>
                         <h2 class="phudu-font text-[26px] font-normal dark:text-white">1,200+</h2>
                         <h3
                             class="whitespace-nowrap text-center text-base text-primary dark:text-sky-400 md:text-[18px]">
@@ -283,7 +283,7 @@
                     <!-- Successful Drivers -->
                     <div
                         class="flex flex-col items-center border-dashed border-primary last:border-0 dark:border-gray-500 md:justify-center md:space-y-2 md:border-r md:px-24">
-                        <i class="fas fa-car text-[50px] text-white"></i>
+                        <i class="fas fa-car text-[50px] text-[#FDA800]"></i>
                         <h2 class="phudu-font text-[26px] font-normal dark:text-white">52,000+</h2>
                         <h3
                             class="whitespace-nowrap text-center text-base text-primary dark:text-sky-400 md:text-[18px]">
@@ -294,7 +294,7 @@
                     <!-- Branches -->
                     <div
                         class="flex flex-col items-center border-dashed border-primary last:border-0 dark:border-gray-500 md:justify-center md:space-y-2 md:px-24">
-                        <i class="fas fa-building text-[50px] text-white"></i>
+                        <i class="fas fa-building text-[50px] text-[#FDA800]"></i>
                         <h2 class="phudu-font text-[26px] font-normal dark:text-white">15+</h2>
                         <h3
                             class="whitespace-nowrap text-center text-base text-primary dark:text-sky-400 md:text-[18px]">
