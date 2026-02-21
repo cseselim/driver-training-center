@@ -223,7 +223,7 @@
                     </div>
                     <div class="ml-3 mt-4 flex items-center gap-4 lg:ml-0 lg:mt-5 lg:gap-6"><a
                             class="group relative z-20 overflow-hidden rounded-lg px-6 py-3 text-base font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-white/50 md:px-8 md:py-3.5 md:text-lg lg:text-xl"
-                            aria-label="Apply for BDDTI driving course — opens application form" href="/application"
+                            aria-label="Apply for BDDTI driving course — opens application form" href="#about_us"
                             style="background: linear-gradient(90deg, rgb(22, 163, 74) 0%, rgb(5, 150, 105) 10%, rgb(8, 145, 178) 20%, rgb(2, 132, 199) 30%, rgb(14, 165, 233) 40%, rgb(37, 99, 235) 50%, rgb(59, 130, 246) 60%, rgb(14, 165, 233) 70%, rgb(2, 132, 199) 80%, rgb(5, 150, 105) 90%, rgb(22, 163, 74) 100%) 0% 0% / 300% 100%; animation: 8s linear 0s infinite normal none running gradientShift;"><span
                                 class="relative z-10 flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg"
                                     class="h-5 w-5 transition-transform duration-300 group-hover:-rotate-90 md:h-6 md:w-6"
@@ -237,7 +237,7 @@
                             </div>
                         </a><a
                             class="group relative z-20 overflow-hidden rounded-lg border border-white/80 bg-white/10 px-4 py-3 text-sm font-semibold uppercase text-white backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-white hover:bg-white/20 hover:shadow-lg dark:border-gray-500 dark:bg-transparent md:px-6 md:py-3.5 md:text-base lg:text-lg"
-                            aria-label="Learn why to choose BDDTI — opens why choose page" href="/why-choose-us"><span
+                            aria-label="Learn why to choose BDDTI — opens why choose page" href="#choose_us"><span
                                 class="relative z-10">Why Choose Us</span>
                             <div
                                 class="absolute inset-0 -z-10 bg-gradient-to-r from-sky-400/20 to-blue-400/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
@@ -253,7 +253,7 @@
         </div>
     </section>
 
-    <section class=" bg-[#111827d9]" style="opacity: 1; transform: none;">
+    <section class=" bg-[#0E1524]" style="opacity: 1; transform: none;">
         <div class="mx-auto max-w-7xl">
             <div class="container flex items-center justify-center px-4 py-10">
                 <div class="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-4">
@@ -370,7 +370,7 @@
         </div>
     </section>
 
-    <section id="about_us" class="bg-white dark:bg-gray-900">
+    <section id="about_us" class="bg-[#0E1524]">
         <div class="mx-auto max-w-7xl">
             <div class="container px-2 py-10 lg:py-24">
                 <div class="flex items-center justify-center">
