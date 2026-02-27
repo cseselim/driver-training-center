@@ -30,6 +30,8 @@ return new class extends Migration {
             $table->string('profile_photo')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->integer('status')->nullable()->comment('1 = active, 2 = Incomplete, 3 = inactive, 9 = dropped out');
+            $table->text('remarks')->nullable()->comment('Remarks for user status or any other notes');
             $table->rememberToken();
             $table->timestamps();
         });

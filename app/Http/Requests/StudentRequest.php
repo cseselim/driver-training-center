@@ -26,9 +26,9 @@ class StudentRequest extends FormRequest
     {
         return [
             'name' => 'required|min:5|max:255',
-            'email' => 'required|email|unique:users,email,' . $this->route('id'),
+            'email' => 'nullable|email|unique:users,email,' . $this->route('id'),
             'password' => 'nullable|min:8',  // password is required on create, optional on update
-            'dob' => 'required|date',
+            'dob' => 'nullable|date',
             'gender' => 'required|in:male,female,other',
             'role' => 'required|in:admin,driver,student',
             // 'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -39,7 +39,9 @@ class StudentRequest extends FormRequest
             'mother_name' => 'nullable|string|max:255',
             'parent_contact' => 'required|string|max:255',
             'phone_number' => 'required|string|max:50',
-            'nid_number' => 'nullable|string|max:50',
+            'nid_number' => 'required|string|max:50',
+            'status' => 'required|integer|in:1,2,3,9',
+            'remarks' => 'nullable|string|max:1000',
         ];
     }
 

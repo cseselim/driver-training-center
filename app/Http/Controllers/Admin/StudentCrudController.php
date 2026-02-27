@@ -79,15 +79,10 @@ class StudentCrudController extends CrudController
 
         CRUD::field('name')->label('Full Name');
         CRUD::field('email')->label('Email');
-
-        // Date of Birth
         CRUD::field('dob')->type('date')->label('Date of Birth');
-
-        // Address
         CRUD::field('present_address')->label('Present Address');
         CRUD::field('permanent_address')->label('Permanent Address');
 
-        // Gender dropdown
         CRUD::field('gender')
             ->type('select_from_array')
             ->options([
@@ -97,14 +92,12 @@ class StudentCrudController extends CrudController
             ])
             ->label('Gender');
 
-        // Parent info
         CRUD::field('father_name')->label("Father's Name");
         CRUD::field('mother_name')->label("Mother's Name");
-        CRUD::field('parent_contact')->label("Parent Contact");
-        CRUD::field('phone_number')->label("Phone Number");
+        CRUD::field('parent_contact')->label("Emergency Contact Person");
+        CRUD::field('phone_number')->label("Mobile Number");
         CRUD::field("nid_number")->label("NID Number");
 
-        // Role dropdown
         CRUD::field('role')
             ->type('hidden')
             ->default('student');
@@ -113,13 +106,26 @@ class StudentCrudController extends CrudController
             ->type('password')
             ->label('Password');
 
-        // Profile photo
+        // ✅ Correctly configured status field
+        CRUD::field('status')
+            ->type('select_from_array')
+            ->options([
+                1 => 'Active',
+                2 => 'Incomplete',
+                3 => 'Inactive',
+                9 => 'Dropped Out',
+            ])
+            ->default(1)
+            ->allows_null(false)
+            ->label('Status');
+
+        CRUD::field('remarks')->label('Remarks');
+
         CRUD::field('profile_photo')
             ->type('upload')
             ->upload(true)
             ->disk('public')
             ->wrapper(['class' => 'form-group col-md-6']);
-
     }
 
 

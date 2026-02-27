@@ -38,6 +38,8 @@ class User extends Authenticatable
         'father_name',
         'mother_name',
         'parent_contact',
+        'status',
+        'remarks',
     ];
 
     /**
