@@ -77,8 +77,13 @@ class DriverCrudController extends CrudController
     {
         CRUD::setValidation(DriverRequest::class);
 
-        CRUD::field('name')->label('Full Name');
-        CRUD::field('email')->label('Email');
+        CRUD::field('name')
+            ->label('Full Name')
+            ->wrapper(['class' => 'form-group col-md-6']);
+
+        CRUD::field('email')
+            ->label('Email')
+            ->wrapper(['class' => 'form-group col-md-6']);
 
         // Availability window
         // CRUD::field('start_date')->type('datetime')->label('Start Date');
@@ -86,11 +91,18 @@ class DriverCrudController extends CrudController
         // CRUD::field('student_capacity')->type('number')->label('Student Capacity');
 
         // Date of Birth
-        CRUD::field('dob')->type('date')->label('Date of Birth');
+        CRUD::field('dob')->type('date')
+            ->label('Date of Birth')
+            ->wrapper(['class' => 'form-group col-md-6']);
 
         // Address
-        CRUD::field('present_address')->label('Present Address');
-        CRUD::field('permanent_address')->label('Permanent Address');
+        CRUD::field('present_address')
+            ->label('Present Address')
+            ->wrapper(['class' => 'form-group col-md-6']);
+
+        CRUD::field('permanent_address')
+            ->label('Permanent Address')
+            ->wrapper(['class' => 'form-group col-md-6']);
 
         // Gender dropdown
         CRUD::field('gender')
@@ -100,29 +112,43 @@ class DriverCrudController extends CrudController
                 'female' => 'Female',
                 'other' => 'Other',
             ])
-            ->label('Gender');
+            ->label('Gender')
+            ->wrapper(['class' => 'form-group col-md-6']);
 
         // Parent info
-        CRUD::field('father_name')->label("Father's Name");
-        CRUD::field('mother_name')->label("Mother's Name");
-        CRUD::field('parent_contact')->label("Emergency Contact Person");
-        CRUD::field('phone_number')->label("Mobile Number");
-        CRUD::field("nid_number")->label("NID Number");
+        CRUD::field('father_name')
+            ->label("Father's Name")
+            ->wrapper(['class' => 'form-group col-md-6']);
+        CRUD::field('mother_name')
+            ->label("Mother's Name")
+            ->wrapper(['class' => 'form-group col-md-6']);
+        CRUD::field('parent_contact')
+            ->label("Emergency Contact Person")
+            ->wrapper(['class' => 'form-group col-md-6']);
+        CRUD::field('phone_number')
+            ->label("Mobile Number")
+            ->wrapper(['class' => 'form-group col-md-6']);
 
-        // Role dropdown
-        CRUD::field('role')
-            ->type('hidden')
-            ->default('driver');
+        CRUD::field("nid_number")
+            ->label("NID Number")
+            ->wrapper(['class' => 'form-group col-md-6']);
 
         CRUD::field('password')
             ->type('password')
-            ->label('Password');
+            ->label('Password')
+            ->wrapper(['class' => 'form-group col-md-6']);
 
         // Profile photo
         CRUD::field('profile_photo')
             ->type('upload')
             ->upload(true)
             ->disk('public')
+            ->wrapper(['class' => 'form-group col-md-6']);
+
+        // Role dropdown
+        CRUD::field('role')
+            ->type('hidden')
+            ->default('driver')
             ->wrapper(['class' => 'form-group col-md-6']);
 
     }
