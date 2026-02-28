@@ -40,6 +40,11 @@ Route::group([
         Route::crud('student-driver', 'StudentDriverCrudController');
     });
 
+    Route::middleware('role:driver')->group(function () {
+        Route::crud('schedules', 'ScheduleController');
+    });
+
+
     Route::get('course-details/{id}', function ($id) {
         $course = Course::select('course_name', 'regular_course_fee', 'actual_course_fee', 'total_class', 'per_class_duration', 'total_duration')->find($id);
         return $course ?? [];

@@ -30,3 +30,7 @@ $userRole = $user->role ?? null;
 @if($userRole === 'student')
     <x-backpack::menu-item title="Schedule Booking" icon="la la-link" :link="backpack_url('student-driver')" />
 @endif
+
+@if($userRole === 'admin' || $userRole === 'driver')
+    <x-backpack::menu-item title="Schedules" icon="la la-link" :link="backpack_url('schedules')" />
+@endif
