@@ -28,8 +28,9 @@ class DriverCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\User::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/driver');
-        CRUD::setEntityNameStrings('driver', 'drivers');
+        CRUD::setEntityNameStrings('driver', 'Instructor');
         CRUD::addClause('where', 'role', '=', 'driver');
+        CRUD::setEntityNameStrings('Instructor', 'Instructors');
     }
 
     /**
@@ -47,9 +48,10 @@ class DriverCrudController extends CrudController
          */
         CRUD::column('name')->label('Full Name');
         CRUD::column('email')->label('Email');
-        CRUD::column('start_date')->label('Start Date');
-        CRUD::column('end_date')->label('End Date');
-        CRUD::column('student_capacity')->label('Student Capacity');
+        CRUD::column('gender')->label('Gender');
+        CRUD::column('phone_number')->label('Mobile Number');
+        CRUD::column('parent_contact')->label('Emergency Contact Person');
+        CRUD::column('nid_number')->label('NID Number');
         // CRUD::addColumn([
         //     'name'  => 'profile_photo',
         //     'label' => 'Photo',
@@ -79,9 +81,9 @@ class DriverCrudController extends CrudController
         CRUD::field('email')->label('Email');
 
         // Availability window
-        CRUD::field('start_date')->type('datetime')->label('Start Date');
-        CRUD::field('end_date')->type('datetime')->label('End Date');
-        CRUD::field('student_capacity')->type('number')->label('Student Capacity');
+        // CRUD::field('start_date')->type('datetime')->label('Start Date');
+        // CRUD::field('end_date')->type('datetime')->label('End Date');
+        // CRUD::field('student_capacity')->type('number')->label('Student Capacity');
 
         // Date of Birth
         CRUD::field('dob')->type('date')->label('Date of Birth');
@@ -103,8 +105,8 @@ class DriverCrudController extends CrudController
         // Parent info
         CRUD::field('father_name')->label("Father's Name");
         CRUD::field('mother_name')->label("Mother's Name");
-        CRUD::field('parent_contact')->label("Parent Contact");
-        CRUD::field('phone_number')->label("Phone Number");
+        CRUD::field('parent_contact')->label("Emergency Contact Person");
+        CRUD::field('phone_number')->label("Mobile Number");
         CRUD::field("nid_number")->label("NID Number");
 
         // Role dropdown
