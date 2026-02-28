@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\StudentRequest;
+use App\Models\Course;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class StudentCrudController
@@ -80,6 +82,93 @@ class StudentCrudController extends CrudController
         CRUD::field('name')->label('Full Name');
         CRUD::field('email')->label('Email');
         CRUD::field('dob')->type('date')->label('Date of Birth');
+
+        // Course dropdown (not a foreign key)
+        $this->crud->addField([
+            'name' => 'course_id',
+            'type' => 'select_from_array',
+            'label' => 'Course',
+            'options' => Course::pluck('course_name', 'id')->toArray(),
+            'attributes' => ['id' => 'course_id'],
+        ]);
+
+        // Add after_scripts for JS
+        $this->crud->addField([
+            'name' => 'course_script',
+            'type' => 'custom_html',
+            'value' => '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                let courseSelect = document.getElementById("course_id");
+                if (!courseSelect) return;
+
+                let wrappers = [
+                    document.querySelector("[name=course_name]").closest(".form-group"),
+                    document.querySelector("[name=regular_course_fee]").closest(".form-group"),
+                    document.querySelector("[name=actual_course_fee]").closest(".form-group"),
+                    document.querySelector("[name=total_class]").closest(".form-group"),
+                    document.querySelector("[name=per_class_duration]").closest(".form-group"),
+                    document.querySelector("[name=total_duration]").closest(".form-group"),
+                ];
+
+                function hideFields(){
+                    wrappers.forEach(w => {
+                        w.style.display = "none";
+                        w.querySelector("input").value = "";
+                    });
+                }
+
+                function showFields(){
+                    wrappers.forEach(w => w.style.display = "");
+                }
+
+                function loadCourse(id){
+                    if(!id){ hideFields(); return; }
+                    fetch("/admin/course-details/" + id)
+                        .then(res => res.json())
+                        .then(data => {
+                        document.querySelector("[name=course_name]").value = courseSelect.options[courseSelect.selectedIndex].text || "";
+                            document.querySelector("[name=regular_course_fee]").value = data.regular_course_fee ?? "";
+                            document.querySelector("[name=actual_course_fee]").value = data.actual_course_fee ?? "";
+                            document.querySelector("[name=total_class]").value = data.total_class ?? "";
+                            document.querySelector("[name=per_class_duration]").value = data.per_class_duration ?? "";
+                            document.querySelector("[name=total_duration]").value = data.total_duration ?? "";
+                            showFields();
+                        });
+                }
+
+                courseSelect.addEventListener("change", function(){ loadCourse(this.value); });
+
+                if(courseSelect.value) loadCourse(courseSelect.value);
+                else hideFields();
+            });
+        </script>'
+        ]);
+
+        // Regular course fields
+        CRUD::field('course_name')
+            ->type('text')
+            ->attributes(['readonly' => 'readonly']);
+
+        CRUD::field('regular_course_fee')
+            ->type('number')
+            ->attributes(['readonly' => 'readonly']);
+
+        CRUD::field('actual_course_fee')
+            ->type('number')
+            ->attributes(['readonly' => 'readonly']);
+
+        CRUD::field('total_class')
+            ->type('number')
+            ->attributes(['readonly' => 'readonly']);
+
+        CRUD::field('per_class_duration')
+            ->type('number')
+            ->attributes(['readonly' => 'readonly']);
+
+        CRUD::field('total_duration')
+            ->type('number')
+            ->attributes(['readonly' => 'readonly']);
+
         CRUD::field('present_address')->label('Present Address');
         CRUD::field('permanent_address')->label('Permanent Address');
 

@@ -40,6 +40,13 @@ class User extends Authenticatable
         'parent_contact',
         'status',
         'remarks',
+        'course_id',
+        'course_name',
+        'regular_course_fee',
+        'actual_course_fee',
+        'total_class',
+        'per_class_duration',
+        'total_duration',
     ];
 
     /**

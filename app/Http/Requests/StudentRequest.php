@@ -27,6 +27,12 @@ class StudentRequest extends FormRequest
         return [
             'name' => 'required|min:5|max:255',
             'email' => 'nullable|email|unique:users,email,' . $this->route('id'),
+            'course_id' => 'nullable|exists:courses,id',
+            'regular_course_fee' => 'nullable|numeric|min:0',
+            'actual_course_fee' => 'nullable|numeric|min:0',
+            'total_class' => 'nullable|numeric|min:0',
+            'per_class_duration' => 'nullable|numeric|min:0',
+            'total_duration' => 'nullable|numeric|min:0',
             'password' => 'nullable|min:8',  // password is required on create, optional on update
             'dob' => 'nullable|date',
             'gender' => 'required|in:male,female,other',

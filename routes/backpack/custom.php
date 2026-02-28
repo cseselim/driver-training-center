@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Models\Course;
 // --------------------------
 // Custom Backpack Routes
 // --------------------------
@@ -38,6 +38,11 @@ Route::group([
     // Student routes
     Route::middleware('role:student')->group(function () {
         Route::crud('student-driver', 'StudentDriverCrudController');
+    });
+
+    Route::get('course-details/{id}', function ($id) {
+        $course = Course::select('course_name', 'regular_course_fee', 'actual_course_fee', 'total_class', 'per_class_duration', 'total_duration')->find($id);
+        return $course ?? [];
     });
 }); // this should be the absolute last line of this file
 
