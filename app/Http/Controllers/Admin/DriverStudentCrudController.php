@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\DriverStudentRequest;
 use App\Models\DriverStudent;
+use App\Models\StudentDriver;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -30,6 +31,7 @@ class DriverStudentCrudController extends CrudController
         CRUD::setModel(DriverStudent::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/driver-student');
         CRUD::setEntityNameStrings('driver-student assignment', 'driver-student assignments');
+        CRUD::setEntityNameStrings('class', 'classes');
 
         // Filter by role: students see only their own, drivers see only their assignments, admins see all
         $user = backpack_user();
@@ -97,52 +99,156 @@ class DriverStudentCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(DriverStudentRequest::class);
-
-        CRUD::field('driver_id')
-            ->type('select')
-            ->label('Driver')
-            ->options(function () {
-                $user = backpack_user();
-                if ($user->role === 'driver') {
-                    return \App\Models\User::where(['role' => 'driver', 'id' => $user->id])->get()->mapWithKeys(function ($u) {
-                        $start = $u->start_date ? \Carbon\Carbon::parse($u->start_date)->format('Y-m-d H:i') : '-';
-                        $end = $u->end_date ? \Carbon\Carbon::parse($u->end_date)->format('Y-m-d H:i') : '-';
-                        return [$u->id => $u->name . ' (' . $start . ' - ' . $end . ')'];
-                    })->toArray();
-                } else {
+        $user = backpack_user();
+        if ($user->role === 'admin') {
+            CRUD::field('driver_id')
+                ->type('select')
+                ->label('Driver')
+                ->options(function () {
+                    $user = backpack_user();
                     return \App\Models\User::where('role', 'driver')->get()->mapWithKeys(function ($u) {
                         $start = $u->start_date ? \Carbon\Carbon::parse($u->start_date)->format('Y-m-d H:i') : '-';
                         $end = $u->end_date ? \Carbon\Carbon::parse($u->end_date)->format('Y-m-d H:i') : '-';
                         return [$u->id => $u->name . ' (' . $start . ' - ' . $end . ')'];
                     })->toArray();
-                }
-            });
+                })->wrapper(['class' => 'form-group col-md-6']);
+        } else {
+            // Student: hidden field with their own ID
+            CRUD::field('driver_id')
+                ->type('hidden')
+                ->default($user->id);
+        }
 
         CRUD::field('student_id')
             ->type('select')
             ->label('Student')
             ->options(function () {
                 return \App\Models\User::where('role', 'student')->pluck('name', 'id');
-            });
+            })->wrapper(['class' => 'form-group col-md-6']);
 
-        // Assignment date - ensure one student can have one driver per date
-        CRUD::field('assignment_date')
-            ->type('date')
-            ->label('Assignment Date');
+        CRUD::field('student_id')
+            ->type('select')
+            ->label('Student')
+            ->options(function () {
+                return \App\Models\User::where('role', 'student')
+                    ->get()
+                    ->pluck(function ($user) {
+                        return $user->name . ' (' . $user->phone_number . ')';
+                    }, 'id')
+                    ->toArray();
+            })
+            ->allows_null(false)
+            ->wrapper(['class' => 'form-group col-md-6']);
+
+        CRUD::field('class_time')
+            ->type('select_from_array')
+            ->options([
+                'A-D' => 'A-D',
+                'A-N' => 'A-N',
+                'M-D' => 'M-D',
+                'M-N' => 'M-N',
+            ])
+            ->label('Class Time')->wrapper(['class' => 'form-group col-md-6']);
+
+        CRUD::field('class_start')
+            ->type('text')
+            ->label('Class Start')
+            ->attributes([
+                'id' => 'class_start_picker',
+                'autocomplete' => 'off',
+            ])
+            ->wrapper(['class' => 'form-group col-md-6']);
+
+        $this->crud->addField([
+            'name' => 'flatpickr_assets',
+            'type' => 'custom_html',
+            'value' => '
+            <!-- Flatpickr CSS -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+            <!-- Flatpickr JS -->
+            <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>',
+            'wrapper' => [
+                'class' => 'd-none'
+            ],
+        ]);
+
+        $this->crud->addField([
+            'name' => 'class_start_script',
+            'type' => 'custom_html',
+            'value' => '<script>
+            document.addEventListener("DOMContentLoaded", function () {
+                flatpickr("#class_start_picker", {
+                    enableTime: true,
+                    noCalendar: false,
+                    dateFormat: "Y-m-d H:i", // Saved format (24-hour)
+                    altInput: true,
+                    altFormat: "F j, Y h:i K", // Display format (AM/PM)
+                    time_24hr: true,
+                    minuteIncrement: 60,
+                    minDate: "today"
+                });
+            });
+        </script>',
+            'wrapper' => [
+                'class' => 'd-none'
+            ],
+        ]);
+
+        CRUD::field('class_end')
+            ->type('text')
+            ->label('Class End')
+            ->attributes([
+                'id' => 'class_end_picker',
+                'autocomplete' => 'off',
+            ])
+            ->wrapper(['class' => 'form-group col-md-6']);
+
+        $this->crud->addField([
+            'name' => 'class_end_script',
+            'type' => 'custom_html',
+            'value' => '<script>
+            document.addEventListener("DOMContentLoaded", function () {
+                flatpickr("#class_end_picker", {
+                    enableTime: true,
+                    noCalendar: false,
+                    dateFormat: "Y-m-d H:i", // Saved format (24-hour)
+                    altInput: true,
+                    altFormat: "F j, Y h:i K", // Display format (AM/PM)
+                    time_24hr: true,
+                    minuteIncrement: 60,
+                    minDate: "today"
+                });
+            });
+        </script>',
+            'wrapper' => [
+                'class' => 'd-none'
+            ],
+        ]);
+
+        CRUD::field('class_type')
+            ->type('select_from_array')
+            ->label('Class Type')
+            ->options([
+                'drive' => 'Drive',
+                'zigzag' => 'Zigzag',
+                'parking' => 'Parking',
+                'back_gearing' => 'Back Gearing',
+            ])->wrapper(['class' => 'form-group col-md-6']);
+
+        CRUD::field('Remarks')
+            ->type('textarea')
+            ->label('Remarks')->wrapper(['class' => 'form-group col-md-6']);
 
         CRUD::field('status')
             ->type('select_from_array')
             ->options([
                 'pending' => 'Pending',
-                'done' => 'Done',
-                'rejected' => 'Rejected',
+                'ongoing' => 'Ongoing',
+                'completed' => 'Completed',
+                'cancelled' => 'Cancelled',
             ])
             ->default('pending')
-            ->label('Status');
-
-        CRUD::field('notes')
-            ->type('textarea')
-            ->label('Notes');
+            ->label('Status')->wrapper(['class' => 'form-group col-md-6']);
     }
 
     /**

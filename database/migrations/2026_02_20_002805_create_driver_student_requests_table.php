@@ -11,28 +11,29 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('driver_student', function (Blueprint $table) {
-            $table->id(); // bigint unsigned auto_increment
+            $table->id();
 
-            $table->unsignedBigInteger('driver_id')->nullable()->index();
-            $table->unsignedBigInteger('student_id')->nullable()->index();
+            $table->foreignId('driver_id')
+                ->constrained('users')
+                ->cascadeOnDelete();
 
-            $table->enum('status', ['Pending', 'Done', 'Rejected'])
-                ->default('Pending');
+            $table->foreignId('student_id')
+                ->constrained('users')
+                ->cascadeOnDelete();
 
-            $table->text('notes')->nullable();
+            $table->string('class_time')->nullable(); // class date
+
+            $table->dateTime('class_start')->nullable();
+            $table->dateTime('class_end')->nullable();
+
+            $table->string('class_type', 50)->nullable();
+
+            $table->text('remarks')->nullable();
+
+            $table->enum('status', ['pending', 'ongoing', 'completed', 'cancelled'])
+                ->default('pending');
 
             $table->timestamps();
-
-            // Optional: Foreign Keys (if needed)
-            /*
-            $table->foreign('driver_id')
-                  ->references('id')->on('drivers')
-                  ->nullOnDelete();
-
-            $table->foreign('student_id')
-                  ->references('id')->on('students')
-                  ->nullOnDelete();
-            */
         });
     }
 

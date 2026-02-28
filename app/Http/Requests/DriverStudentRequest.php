@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Closure;
@@ -25,48 +26,31 @@ class DriverStudentRequest extends FormRequest
      */
     public function rules()
     {
-        $entryId = $this->route('id');
-        $uniqueRule = Rule::unique('driver_student')->where(function ($query) {
-            return $query->where('assignment_date', $this->input('assignment_date'));
-        });
-
-        // For update requests, ignore the current entry
-        if ($entryId) {
-            $uniqueRule = $uniqueRule->ignore($entryId);
-        }
 
         return [
+            'class_time' => 'required',
             'driver_id' => [
                 'required',
-                'exists:users,id',
-                function (string $attribute, mixed $value, Closure $fail) use ($entryId) {
-                    // Check if driver has reached student_capacity for the given assignment date
-                    $driver = \App\Models\User::find($value);
-                    if (!$driver || !$driver->student_capacity) {
-                        return; // No capacity limit
-                    }
-
-                    $query = \App\Models\DriverStudent::where('driver_id', $value)
-                        ->where('assignment_date', $this->input('assignment_date'));
-
-                    // Exclude current entry if updating
-                    if ($entryId) {
-                        $query = $query->where('id', '!=', $entryId);
-                    }
-
-                    $assignedCount = $query->count();
-                    if ($assignedCount >= $driver->student_capacity) {
-                        $fail("Driver {$driver->name} has reached their student capacity of {$driver->student_capacity} for the chosen date.");
-                    }
-                },
             ],
-            'assignment_date' => 'required|date',
             'student_id' => [
                 'required',
                 'exists:users,id',
-                $uniqueRule,
+                Rule::unique('driver_student')
+                    ->ignore($this->id) // 👈 ignore current record when editing
+                    ->where(function ($query) {
+                        return $query->whereDate('created_at', Carbon::today());
+                    }),
             ],
-            'status' => 'required|in:pending,done,rejected',
+            'class_start' => [
+                'required',
+                'date_format:Y-m-d H:i',
+            ],
+            'class_end' => [
+                'required',
+                'date_format:Y-m-d H:i',
+                'after:class_start'
+            ],
+            'status' => 'required|in:pending,ongoing,completed,cancelled',
         ];
     }
 
