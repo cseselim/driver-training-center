@@ -64,17 +64,9 @@ class StudentDriverCrudController extends CrudController
                 });
             });
 
-        CRUD::column('status')
-            ->label('Status')
-            ->type('select_from_array')
-            ->options([
-                'pending' => 'Pending',
-                'accepted' => 'Accepted',
-                'rejected' => 'Rejected',
-            ]);
-
-        CRUD::column('notes')
-            ->label('Notes');
+        CRUD::column('car_type')->label('Car Type');
+        CRUD::column('next_date')->label('Next Date & Time');
+        CRUD::column('number_of_class')->label('Number of Class');
 
         CRUD::column('created_at')
             ->label('Created');

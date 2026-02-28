@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->string('time_schedule')->nullable();
             $table->string('next_date')->nullable();
             $table->integer('number_of_class')->default(0);
-
+            $table->tinyInteger('status')->default(1)->comment('1 = active, 2 = inactive');
             $table->timestamps();
         });
     }
