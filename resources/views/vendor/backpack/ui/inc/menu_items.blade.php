@@ -18,7 +18,7 @@ $userRole = $user->role ?? null;
     <x-backpack::menu-item title="Students" icon="la la-graduation-cap" :link="backpack_url('student')" />
     <x-backpack::menu-item title="Instructor" icon="la la-car" :link="backpack_url('driver')" />
     <x-backpack::menu-item title="Driver-Student Assignments" icon="la la-link" :link="backpack_url('driver-student')" />
-    <x-backpack::menu-item title="Student-Driver Assignments" icon="la la-link" :link="backpack_url('student-driver')" />
+    <x-backpack::menu-item title="Schedule Booking" icon="la la-link" :link="backpack_url('student-driver')" />
 @endif
 
 {{-- Driver Menu Items (Only for Driver users) --}}

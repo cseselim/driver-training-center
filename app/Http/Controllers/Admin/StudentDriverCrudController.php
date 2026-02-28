@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\DriverStudentRequest;
-use App\Models\DriverStudent;
+use App\Http\Requests\StudentDriverRequest;
+use App\Models\StudentDriver;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Carbon\Carbon;
 
 /**
  * Class StudentDriverCrudController
@@ -22,9 +24,10 @@ class StudentDriverCrudController extends CrudController
 
     public function setup()
     {
-        CRUD::setModel(DriverStudent::class);
+        CRUD::setModel(StudentDriver::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/student-driver');
         CRUD::setEntityNameStrings('student-driver assignment', 'student-driver assignments');
+        CRUD::setEntityNameStrings('Schedule', 'Schedules');
 
         // Filter by role: students see only their own, drivers see only their assignments, admins see all
         $user = backpack_user();
@@ -79,7 +82,16 @@ class StudentDriverCrudController extends CrudController
 
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(DriverStudentRequest::class);
+        CRUD::setValidation(StudentDriverRequest::class);
+
+        CRUD::field('car_type')
+            ->type('select_from_array')
+            ->label('Car Type')
+            ->options([
+                '' => '- Select Car Type -',
+                'auto' => 'Auto',
+                'manual' => 'Manual',
+            ])->wrapper(['class' => 'form-group col-md-6']);
 
         CRUD::field('driver_id')
             ->type('select')
@@ -90,44 +102,118 @@ class StudentDriverCrudController extends CrudController
                     $end = $u->end_date ? \Carbon\Carbon::parse($u->end_date)->format('Y-m-d H:i') : '-';
                     return [$u->id => $u->name . ' (' . $start . ' - ' . $end . ')'];
                 })->toArray();
-            });
+            })->wrapper(['class' => 'form-group col-md-6']);
 
-        CRUD::field('student_id')
-            ->type('select')
-            ->label('Student')
-            ->options(function () {
-                $user = backpack_user();
-                if ($user->role === 'student') {
-                    return \App\Models\User::where(['role' => 'student', 'id' => $user->id])->pluck('name', 'id');
-                } elseif ($user->role === 'admin') {
-                    return \App\Models\User::where('role', 'student')->pluck('name', 'id');
-                }
-            });
+        // CRUD::field('student_id')
+        //     ->type('select')
+        //     ->label('Student')
+        //     ->options(function () {
+        //         $user = backpack_user();
+        //         if ($user->role === 'student') {
+        //             return \App\Models\User::where(['role' => 'student', 'id' => $user->id])->pluck('name', 'id');
+        //         } elseif ($user->role === 'admin') {
+        //             return \App\Models\User::where('role', 'student')->pluck('name', 'id');
+        //         }
+        //     });
+
+        $user = backpack_user();
+
+        if ($user->role === 'admin') {
+            // Admin sees the select dropdown
+            CRUD::field('student_id')
+                ->type('select')
+                ->label('Student')
+                ->options(function () {
+                    return \App\Models\User::where('role', 'student')
+                        ->get()
+                        ->pluck(function ($user) {
+                            return $user->name . ' (' . $user->phone_number . ')';
+                        }, 'id')
+                        ->toArray();
+                })
+                ->allows_null(false)
+                ->default(null)->wrapper(['class' => 'form-group col-md-6']);
+        } else {
+            // Student: hidden field with their own ID
+            CRUD::field('student_id')
+                ->type('hidden')
+                ->default($user->id);
+        }
 
         // Assignment date - ensure one student can have one driver per date
-        CRUD::field('assignment_date')
-            ->type('date')
-            ->label('Assignment Date');
-        $user = backpack_user();
-        $statusOptions = ($user && $user->role === 'student')
-            ? [
-                'pending' => 'Pending',
-            ]
-            : [
-                'pending' => 'Pending',
-                'accepted' => 'Accepted',
-                'rejected' => 'Rejected',
-            ];
+        // 1️⃣ Next Date & Time field
+        CRUD::field('next_date')
+            ->type('text')
+            ->label('Next Date & Time')
+            ->default(Carbon::tomorrow()->format('Y-m-d H:00'))
+            ->attributes([
+                'id' => 'next_datetime_picker',
+                'autocomplete' => 'off',
+                'placeholder' => 'Select date & time (tomorrow, 12AM - 11PM)',
+            ])
+            ->wrapper(['class' => 'form-group col-md-6']);
 
-        CRUD::field('status')
-            ->type('select_from_array')
-            ->options($statusOptions)
-            ->default('pending')
-            ->label('Status');
+        CRUD::field('number_of_class')
+            ->type('number')
+            ->label('Number of Class')
+            ->attributes([
+                'min' => 1,
+                'max' => 5,
+            ])
+            ->wrapper(['class' => 'form-group col-md-6']);
 
-        CRUD::field('notes')
-            ->type('textarea')
-            ->label('Notes');
+        $this->crud->addField([
+            'name' => 'flatpickr_assets',
+            'type' => 'custom_html',
+            'value' => '
+            <!-- Flatpickr CSS -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+            <!-- Flatpickr JS -->
+            <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>',
+        ]);
+
+        $this->crud->addField([
+            'name' => 'flatpickr_script',
+            'type' => 'custom_html',
+            'value' => '<script>
+            document.addEventListener("DOMContentLoaded", function () {
+                flatpickr("#next_datetime_picker", {
+                    enableTime: true,
+                    noCalendar: false,
+                    dateFormat: "Y-m-d h:i K", // 12-hour with AM/PM
+                    defaultDate: "' . Carbon::tomorrow()->format('Y-m-d h:00 A') . '",
+                    minDate: "' . Carbon::tomorrow()->format('Y-m-d') . '", // only tomorrow selectable
+                    maxDate: "' . Carbon::tomorrow()->format('Y-m-d') . '",
+                    minTime: "12:00 AM",
+                    maxTime: "11:00 PM",
+                    time_24hr: false, // 12-hour format
+                    minuteIncrement: 60,
+                    allowInput: true
+                });
+            });
+            </script>',
+        ]);
+
+        // $user = backpack_user();
+        // $statusOptions = ($user && $user->role === 'student')
+        //     ? [
+        //         'pending' => 'Pending',
+        //     ]
+        //     : [
+        //         'pending' => 'Pending',
+        //         'accepted' => 'Accepted',
+        //         'rejected' => 'Rejected',
+        //     ];
+
+        // CRUD::field('status')
+        //     ->type('select_from_array')
+        //     ->options($statusOptions)
+        //     ->default('pending')
+        //     ->label('Status');
+
+        // CRUD::field('notes')
+        //     ->type('textarea')
+        //     ->label('Notes');
     }
 
     protected function setupUpdateOperation()
