@@ -79,9 +79,10 @@ class StudentCrudController extends CrudController
     {
         CRUD::setValidation(StudentRequest::class);
 
-        CRUD::field('name')->label('Full Name');
-        CRUD::field('email')->label('Email');
-        CRUD::field('dob')->type('date')->label('Date of Birth');
+        CRUD::field('name')->label('Full Name')->wrapper(['class' => 'form-group col-md-6']);
+        CRUD::field('email')->label('Email')->wrapper(['class' => 'form-group col-md-6']);
+        CRUD::field('phone_number')->label("Mobile Number")->wrapper(['class' => 'form-group col-md-6']);
+        CRUD::field('dob')->type('date')->label('Date of Birth')->wrapper(['class' => 'form-group col-md-6']);
 
         // Course dropdown (not a foreign key)
         $this->crud->addField([
@@ -90,6 +91,9 @@ class StudentCrudController extends CrudController
             'label' => 'Course',
             'options' => Course::pluck('course_name', 'id')->toArray(),
             'attributes' => ['id' => 'course_id'],
+            'wrapper' => [
+                'class' => 'form-group col-md-6'
+            ],
         ]);
 
         // Add after_scripts for JS
@@ -141,36 +145,33 @@ class StudentCrudController extends CrudController
                 if(courseSelect.value) loadCourse(courseSelect.value);
                 else hideFields();
             });
-        </script>'
+        </script>',
+            'wrapper' => [
+                'class' => 'd-none'
+            ],
         ]);
 
         // Regular course fields
         CRUD::field('course_name')
-            ->type('text')
-            ->attributes(['readonly' => 'readonly']);
+            ->type('text')->wrapper(['class' => 'form-group col-md-6']);
 
         CRUD::field('regular_course_fee')
-            ->type('number')
-            ->attributes(['readonly' => 'readonly']);
+            ->type('number')->wrapper(['class' => 'form-group col-md-6']);
 
         CRUD::field('actual_course_fee')
-            ->type('number')
-            ->attributes(['readonly' => 'readonly']);
+            ->type('number')->wrapper(['class' => 'form-group col-md-6']);
 
         CRUD::field('total_class')
-            ->type('number')
-            ->attributes(['readonly' => 'readonly']);
+            ->type('number')->wrapper(['class' => 'form-group col-md-6']);
 
         CRUD::field('per_class_duration')
-            ->type('number')
-            ->attributes(['readonly' => 'readonly']);
+            ->type('number')->wrapper(['class' => 'form-group col-md-6']);
 
         CRUD::field('total_duration')
-            ->type('number')
-            ->attributes(['readonly' => 'readonly']);
+            ->type('number')->wrapper(['class' => 'form-group col-md-6']);
 
-        CRUD::field('present_address')->label('Present Address');
-        CRUD::field('permanent_address')->label('Permanent Address');
+        CRUD::field('present_address')->label('Present Address')->wrapper(['class' => 'form-group col-md-6']);
+        CRUD::field('permanent_address')->label('Permanent Address')->wrapper(['class' => 'form-group col-md-6']);
 
         CRUD::field('gender')
             ->type('select_from_array')
@@ -179,13 +180,13 @@ class StudentCrudController extends CrudController
                 'female' => 'Female',
                 'other' => 'Other',
             ])
-            ->label('Gender');
+            ->label('Gender')->wrapper(['class' => 'form-group col-md-6']);
 
-        CRUD::field('father_name')->label("Father's Name");
-        CRUD::field('mother_name')->label("Mother's Name");
-        CRUD::field('parent_contact')->label("Emergency Contact Person");
-        CRUD::field('phone_number')->label("Mobile Number");
-        CRUD::field("nid_number")->label("NID Number");
+        CRUD::field('father_name')->label("Father's Name")->wrapper(['class' => 'form-group col-md-6']);
+        CRUD::field('mother_name')->label("Mother's Name")->wrapper(['class' => 'form-group col-md-6']);
+        CRUD::field('parent_contact')->label("Emergency Contact Person Mobile Number")->wrapper(['class' => 'form-group col-md-6']);
+        CRUD::field('emergency_contact_relation')->label("Emergency Contact Person Relation")->wrapper(['class' => 'form-group col-md-6']);
+        CRUD::field("nid_number")->label("NID Number")->wrapper(['class' => 'form-group col-md-6']);
 
         CRUD::field('role')
             ->type('hidden')
@@ -193,7 +194,7 @@ class StudentCrudController extends CrudController
 
         CRUD::field('password')
             ->type('password')
-            ->label('Password');
+            ->label('Password')->wrapper(['class' => 'form-group col-md-6']);
 
         // ✅ Correctly configured status field
         CRUD::field('status')
@@ -206,9 +207,9 @@ class StudentCrudController extends CrudController
             ])
             ->default(1)
             ->allows_null(false)
-            ->label('Status');
+            ->label('Status')->wrapper(['class' => 'form-group col-md-6']);
 
-        CRUD::field('remarks')->label('Remarks');
+        CRUD::field('remarks')->label('Remarks')->wrapper(['class' => 'form-group col-md-6']);
 
         CRUD::field('profile_photo')
             ->type('upload')

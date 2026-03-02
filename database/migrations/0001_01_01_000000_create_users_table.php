@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->string('father_name')->nullable();
             $table->string('mother_name')->nullable();
             $table->string('parent_contact')->nullable();
+            $table->string('emergency_contact_relation', 100)->nullable();
             $table->enum('role', ['admin', 'driver', 'student'])->default('admin');
             $table->string('student_capacity')->nullable()->comment('This column only for driver');
             $table->dateTime('start_date')->nullable()->comment('Driver availability start date');

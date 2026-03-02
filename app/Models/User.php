@@ -38,6 +38,7 @@ class User extends Authenticatable
         'father_name',
         'mother_name',
         'parent_contact',
+        'emergency_contact_relation',
         'status',
         'remarks',
         'course_id',
