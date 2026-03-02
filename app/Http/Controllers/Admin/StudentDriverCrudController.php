@@ -87,7 +87,7 @@ class StudentDriverCrudController extends CrudController
 
         CRUD::field('driver_id')
             ->type('select')
-            ->label('Driver')
+            ->label('Instructor')
             ->options(function () {
                 return \App\Models\User::where('role', 'driver')->get()->mapWithKeys(function ($u) {
                     $start = $u->start_date ? \Carbon\Carbon::parse($u->start_date)->format('Y-m-d H:i') : '-';
@@ -132,17 +132,39 @@ class StudentDriverCrudController extends CrudController
                 ->default($user->id);
         }
 
+        CRUD::field('time_schedule')
+            ->type('select_from_array') // <-- change here
+            ->label('Time Schedule')
+            ->options(\App\Models\TimeSchedule::pluck('schedule_name', 'id')->toArray())
+            ->allows_null(false)
+            ->default(null)
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
         // Assignment date - ensure one student can have one driver per date
         // 1️⃣ Next Date & Time field
+        $nextDate = Carbon::tomorrow()->format('Y-m-d H:00');
+        // Prepare common attributes
+        $attributes = [
+            'id' => 'next_datetime_picker',
+            'autocomplete' => 'off',
+            'placeholder' => 'Select date & time',
+        ];
+
+        $isAdmin = backpack_user()->role === 'admin';
+
+        if (!$isAdmin) {
+            // Non-admin: readonly, only next date
+            $attributes['readonly'] = true;
+            $attributes['value'] = $nextDate;
+        }
+
         CRUD::field('next_date')
             ->type('text')
-            ->label('Next Date & Time')
-            ->default(Carbon::tomorrow()->format('Y-m-d H:00'))
-            ->attributes([
-                'id' => 'next_datetime_picker',
-                'autocomplete' => 'off',
-                'placeholder' => 'Select date & time (tomorrow, 12AM - 11PM)',
-            ])
+            ->label('Schedule')
+            ->default($nextDate)
+            ->attributes($attributes)
             ->wrapper(['class' => 'form-group col-md-6']);
 
         CRUD::field('number_of_class')
@@ -170,22 +192,14 @@ class StudentDriverCrudController extends CrudController
             'value' => '<script>
             document.addEventListener("DOMContentLoaded", function () {
                 flatpickr("#next_datetime_picker", {
-                    enableTime: true,
-                    noCalendar: false,
-                    dateFormat: "Y-m-d h:i K", // 12-hour with AM/PM
-                    defaultDate: "' . Carbon::tomorrow()->format('Y-m-d h:00 A') . '",
-                    minDate: "' . Carbon::tomorrow()->format('Y-m-d') . '", // only tomorrow selectable
-                    maxDate: "' . Carbon::tomorrow()->format('Y-m-d') . '",
-                    minTime: "12:00 AM",
-                    maxTime: "11:00 PM",
-                    time_24hr: false, // 12-hour format
-                    minuteIncrement: 60,
-                    allowInput: true
+                    enableTime: false,
+                    dateFormat: "Y-m-d",
+                    ' . (!$isAdmin ? 'minDate: "' . $nextDate . '", maxDate: "' . $nextDate . '",' : '') . '
+                    allowInput: false,
                 });
             });
             </script>',
         ]);
-
         // $user = backpack_user();
         // $statusOptions = ($user && $user->role === 'student')
         //     ? [

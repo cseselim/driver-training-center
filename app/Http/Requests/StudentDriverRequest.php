@@ -41,25 +41,9 @@ class StudentDriverRequest extends FormRequest
             ],
             'driver_id' => 'required|exists:users,id',
             'car_type' => 'required|in:auto,manual',
-            'next_date' => [
-                'required',
-                'date',
-                function ($attribute, $value, $fail) {
-                    $dt = Carbon::parse($value);
-
-                    // Must be tomorrow
-                    if (!$dt->isSameDay(Carbon::tomorrow())) {
-                        $fail('The ' . $attribute . ' must be tomorrow.');
-                    }
-
-                    // Must be between 12 AM and 11 PM
-                    $hour = $dt->hour;
-                    if ($hour < 0 || $hour > 23) {
-                        $fail('The ' . $attribute . ' time must be between 12 AM and 11 PM.');
-                    }
-                }
-            ],
+            'next_date' => 'required',
             'number_of_class' => 'required|integer|min:1|max:5',
+            'time_schedule' => 'required',
         ];
     }
 }
