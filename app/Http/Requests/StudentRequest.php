@@ -43,7 +43,7 @@ class StudentRequest extends FormRequest
             'permanent_address' => 'required|string|max:1000',
             'father_name' => 'required|string|max:255',
             'mother_name' => 'nullable|string|max:255',
-            'parent_contact' => 'required|string|max:255',
+            'parent_contact' => 'nullable|string|max:255',
             'emergency_contact_relation' => 'nullable|string|max:100',
             'phone_number' => 'required|string|max:50|unique:users,phone_number,' . $this->route('id'),
             'nid_number' => 'required|string|max:50',

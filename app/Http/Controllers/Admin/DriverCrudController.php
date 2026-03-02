@@ -85,6 +85,10 @@ class DriverCrudController extends CrudController
             ->label('Email')
             ->wrapper(['class' => 'form-group col-md-6']);
 
+        CRUD::field('phone_number')
+            ->label("Mobile Number")
+            ->wrapper(['class' => 'form-group col-md-6']);
+
         // Availability window
         // CRUD::field('start_date')->type('datetime')->label('Start Date');
         // CRUD::field('end_date')->type('datetime')->label('End Date');
@@ -123,10 +127,10 @@ class DriverCrudController extends CrudController
             ->label("Mother's Name")
             ->wrapper(['class' => 'form-group col-md-6']);
         CRUD::field('parent_contact')
-            ->label("Emergency Contact Person")
+            ->label("Emergency Contact Person Mobile Number")
             ->wrapper(['class' => 'form-group col-md-6']);
-        CRUD::field('phone_number')
-            ->label("Mobile Number")
+        CRUD::field('emergency_contact_relation')
+            ->label("Emergency Contact Person Relation")
             ->wrapper(['class' => 'form-group col-md-6']);
 
         CRUD::field("nid_number")

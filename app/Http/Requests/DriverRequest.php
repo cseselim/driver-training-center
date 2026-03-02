@@ -38,11 +38,12 @@ class DriverRequest extends FormRequest
             'profile_photo' => 'nullable|image',
             'present_address' => 'required|string|max:1000',
             'permanent_address' => 'required|string|max:1000',
-            'phone_number' => 'required|string|max:50',
+            'phone_number' => 'required|string|max:50|unique:users,phone_number,' . $this->route('id'),
             'nid_number' => 'required|string|max:50',
             'father_name' => 'nullable|string|max:255',
             'mother_name' => 'nullable|string|max:255',
-            'parent_contact' => 'nullable|string|max:255'
+            'parent_contact' => 'nullable|string|max:255',
+            'emergency_contact_relation' => 'nullable|string|max:100'
         ];
     }
 
