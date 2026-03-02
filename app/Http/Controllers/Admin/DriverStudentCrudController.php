@@ -103,15 +103,18 @@ class DriverStudentCrudController extends CrudController
         if ($user->role === 'admin') {
             CRUD::field('driver_id')
                 ->type('select')
-                ->label('Driver')
+                ->label('Instructor')
                 ->options(function () {
-                    $user = backpack_user();
-                    return \App\Models\User::where('role', 'driver')->get()->mapWithKeys(function ($u) {
-                        $start = $u->start_date ? \Carbon\Carbon::parse($u->start_date)->format('Y-m-d H:i') : '-';
-                        $end = $u->end_date ? \Carbon\Carbon::parse($u->end_date)->format('Y-m-d H:i') : '-';
-                        return [$u->id => $u->name . ' (' . $start . ' - ' . $end . ')'];
-                    })->toArray();
-                })->wrapper(['class' => 'form-group col-md-6']);
+                    return \App\Models\User::where('role', 'driver')
+                        ->get()
+                        ->pluck(function ($u) {
+                            return $u->name . ' (' . $u->phone_number . ')';
+                        }, 'id')
+                        ->toArray();
+                })
+                ->wrapper([
+                    'class' => 'form-group col-md-6'
+                ]);
         } else {
             // Student: hidden field with their own ID
             CRUD::field('driver_id')
@@ -143,10 +146,10 @@ class DriverStudentCrudController extends CrudController
         CRUD::field('class_time')
             ->type('select_from_array')
             ->options([
-                'A-D' => 'A-D',
-                'A-N' => 'A-N',
-                'M-D' => 'M-D',
-                'M-N' => 'M-N',
+                'A*D' => 'A*D',
+                'A*N' => 'A*N',
+                'M*D' => 'M*D',
+                'M*N' => 'M*N',
             ])
             ->label('Class Time')->wrapper(['class' => 'form-group col-md-6']);
 
@@ -239,16 +242,6 @@ class DriverStudentCrudController extends CrudController
             ->type('textarea')
             ->label('Remarks')->wrapper(['class' => 'form-group col-md-6']);
 
-        CRUD::field('status')
-            ->type('select_from_array')
-            ->options([
-                'pending' => 'Pending',
-                'ongoing' => 'Ongoing',
-                'completed' => 'Completed',
-                'cancelled' => 'Cancelled',
-            ])
-            ->default('pending')
-            ->label('Status')->wrapper(['class' => 'form-group col-md-6']);
     }
 
     /**

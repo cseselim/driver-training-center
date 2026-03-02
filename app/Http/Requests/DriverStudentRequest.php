@@ -50,7 +50,7 @@ class DriverStudentRequest extends FormRequest
                 'date_format:Y-m-d H:i',
                 'after:class_start'
             ],
-            'status' => 'required|in:pending,ongoing,completed,cancelled',
+            'remarks' => 'nullable|string|max:1000',
         ];
     }
 
