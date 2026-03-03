@@ -103,9 +103,7 @@ class StudentDriverCrudController extends CrudController
                 ->label('Instructor')
                 ->options(function () {
                     return \App\Models\User::where('role', 'driver')->get()->mapWithKeys(function ($u) {
-                        $start = $u->start_date ? \Carbon\Carbon::parse($u->start_date)->format('Y-m-d H:i') : '-';
-                        $end = $u->end_date ? \Carbon\Carbon::parse($u->end_date)->format('Y-m-d H:i') : '-';
-                        return [$u->id => $u->name . ' (' . $start . ' - ' . $end . ')'];
+                        return [$u->id => $u->name . ' (' . $u->phone_number . ')'];
                     })->toArray();
                 })->wrapper(['class' => 'form-group col-md-6']);
 
