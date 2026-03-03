@@ -82,7 +82,41 @@ class StudentCrudController extends CrudController
         CRUD::field('name')->label('Full Name')->wrapper(['class' => 'form-group col-md-6']);
         CRUD::field('email')->label('Email')->wrapper(['class' => 'form-group col-md-6']);
         CRUD::field('phone_number')->label("Mobile Number")->wrapper(['class' => 'form-group col-md-6']);
-        CRUD::field('dob')->type('date')->label('Date of Birth')->wrapper(['class' => 'form-group col-md-6']);
+        $this->crud->addField([
+            'name' => 'dob',
+            'type' => 'text', // Flatpickr handle করবে
+            'label' => 'Date of Birth',
+            'attributes' => [
+                'id' => 'dob_picker', // important for JS
+                'class' => 'form-control',
+                'placeholder' => 'Select Date of Birth',
+            ],
+            'wrapper' => ['class' => 'col-md-6'],
+        ]);
+
+        // Include Flatpickr CSS & JS
+        $this->crud->addField([
+            'name' => 'flatpickr_assets',
+            'type' => 'custom_html',
+            'value' => '
+            <!-- Flatpickr CSS -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+            <!-- Flatpickr JS -->
+            <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+            <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                flatpickr("#dob_picker", {
+                    enableTime: false,
+                    dateFormat: "Y-m-d",
+                    allowInput: false
+                });
+            });
+            </script>
+        ',
+            'wrapper' => [
+                'class' => 'd-none', // <-- hide wrapper, no space
+            ],
+        ]);
 
         // Course dropdown (not a foreign key)
         $this->crud->addField([

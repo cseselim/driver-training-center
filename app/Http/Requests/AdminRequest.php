@@ -32,6 +32,7 @@ class AdminRequest extends FormRequest
                 'email',
                 Rule::unique('users', 'email')->ignore($this->id),
             ],
+            'phone_number' => 'required|string|max:255',
             'password' => $this->isMethod('create') ? 'required|min:8' : 'nullable|min:8',  // password is required on create, optional on update
             'dob' => 'nullable|date',
             'gender' => 'nullable|in:male,female,other',
@@ -43,6 +44,7 @@ class AdminRequest extends FormRequest
             'father_name' => 'nullable|string|max:255',
             'mother_name' => 'nullable|string|max:255',
             'parent_contact' => 'nullable|string|max:255'
+
         ];
     }
 
