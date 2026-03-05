@@ -125,12 +125,12 @@ return [
     // Username column for authentication
     // The Backpack default is the same as the Laravel default (email)
     // If you need to switch to username, you also need to create that column in your db
-    'authentication_column' => 'email',
-    'authentication_column_name' => 'Email',
+    'authentication_column' => 'phone_number',
+    'authentication_column_name' => 'Email', // only used for error messages and labels
 
     // Backpack assumes that your "database email column" for operations like Login and Register is called "email".
     // If your database email column have a different name, you can configure it here. Eg: `user_mail`
-    'email_column' => 'email',
+    'email_column' => 'phone_number',
 
     // The guard that protects the Backpack admin panel.
     // If null, the config.auth.defaults.guard value will be used.
