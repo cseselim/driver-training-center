@@ -224,11 +224,11 @@ class StudentDriverCrudController extends CrudController
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update()
-    {
-        $response = parent::update();
+    // public function update()
+    // {
+    //     $response = parent::update();
 
-        // Redirect to list after successful update
-        return redirect()->route($this->crud->route . '.index')->with('success', 'Student-driver assignment updated successfully.');
-    }
+    //     // Redirect to list after successful update
+    //     return redirect()->route($this->crud->route . '.index')->with('success', 'Student-driver assignment updated successfully.');
+    // }
 }
