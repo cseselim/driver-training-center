@@ -51,7 +51,7 @@ class DriverStudentCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('driver_id')
-            ->label('Driver')
+            ->label('Instructor')
             ->type('closure')
             ->function(function ($entry) {
                 return $entry->driver?->name ?? '-';
@@ -74,14 +74,14 @@ class DriverStudentCrudController extends CrudController
                 });
             });
 
-        CRUD::column('status')
-            ->label('Status')
-            ->type('select_from_array')
-            ->options([
-                'pending' => 'Pending',
-                'accepted' => 'Accepted',
-                'rejected' => 'Rejected',
-            ]);
+        // CRUD::column('status')
+        //     ->label('Status')
+        //     ->type('select_from_array')
+        //     ->options([
+        //         'pending' => 'Pending',
+        //         'accepted' => 'Accepted',
+        //         'rejected' => 'Rejected',
+        //     ]);
 
         CRUD::column('notes')
             ->label('Notes');
@@ -146,11 +146,12 @@ class DriverStudentCrudController extends CrudController
         CRUD::field('class_time')
             ->type('select_from_array')
             ->options([
-                'A*D' => 'A*D',
-                'A*N' => 'A*N',
-                'M*D' => 'M*D',
-                'M*N' => 'M*N',
+                'A/D' => 'A/D',
+                'A/N' => 'A/N',
+                'M/D' => 'M/D',
+                'M/N' => 'M/N',
             ])
+            ->default('A/D')
             ->label('Class Time')->wrapper(['class' => 'form-group col-md-6']);
 
         CRUD::field('class_start')
@@ -236,7 +237,8 @@ class DriverStudentCrudController extends CrudController
                 'zigzag' => 'Zigzag',
                 'parking' => 'Parking',
                 'back_gearing' => 'Back Gearing',
-            ])->wrapper(['class' => 'form-group col-md-6']);
+            ])->default('drive')
+            ->wrapper(['class' => 'form-group col-md-6']);
 
         CRUD::field('Remarks')
             ->type('textarea')

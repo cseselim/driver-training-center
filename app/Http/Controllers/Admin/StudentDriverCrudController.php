@@ -173,7 +173,7 @@ class StudentDriverCrudController extends CrudController
 
             CRUD::field('next_date')
                 ->type('text')
-                ->label('Schedule')
+                ->label('Schedule Date')
                 ->default($nextDate)
                 ->attributes($attributes)
                 ->wrapper(['class' => 'form-group col-md-6']);

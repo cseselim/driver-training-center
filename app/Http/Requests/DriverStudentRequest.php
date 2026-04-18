@@ -34,12 +34,12 @@ class DriverStudentRequest extends FormRequest
             ],
             'student_id' => [
                 'required',
-                'exists:users,id',
-                Rule::unique('driver_student')
-                    ->ignore($this->id) // 👈 ignore current record when editing
-                    ->where(function ($query) {
-                        return $query->whereDate('created_at', Carbon::today());
-                    }),
+                // 'exists:users,id',
+                // Rule::unique('driver_student')
+                //     ->ignore($this->id) // 👈 ignore current record when editing
+                    // ->where(function ($query) {
+                    //     return $query->whereDate('created_at', Carbon::today//());
+                   // }),
             ],
             'class_start' => [
                 'required',
