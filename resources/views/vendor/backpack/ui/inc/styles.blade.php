@@ -33,3 +33,9 @@
 @if (backpack_theme_config('vite_styles') && count(backpack_theme_config('vite_styles')))
     @vite(backpack_theme_config('vite_styles'))
 @endif
+
+<style>
+    .footer {
+        position: relative;
+    }
+</style>
